@@ -1,0 +1,29 @@
+# ASP.NET Core
+WebApplication2/bin/
+WebApplication2/obj/
+WebApplication2/*.user
+WebApplication2/*.suo
+WebApplication2/*.vspscc
+WebApplication2/appsettings*.json
+WebApplication2/*.log
+WebApplication2/logs/
+
+# React ClientApp
+clientapp/node_modules/
+clientapp/build/
+clientapp/.cache/
+clientapp/coverage/
+clientapp/.env
+
+# Solution File
+*.sln.docstates
+
+# OS-generated files
+.DS_Store
+Thumbs.db
+
+# IDE-specific files
+.vs/
+.idea/
+*.code-workspace
+*.iml

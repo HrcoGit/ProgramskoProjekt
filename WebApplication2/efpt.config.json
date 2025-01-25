@@ -1,0 +1,113 @@
+﻿{
+    "CodeGenerationMode": 4,
+    "ContextClassName": "DbContext",
+    "ContextNamespace": null,
+    "FilterSchemas": false,
+    "IncludeConnectionString": false,
+    "ModelNamespace": null,
+    "OutputContextPath": null,
+    "OutputPath": "Models",
+    "PreserveCasingWithRegex": true,
+    "ProjectRootNamespace": "Programsko",
+    "Schemas": null,
+    "SelectedHandlebarsLanguage": 2,
+    "SelectedToBeGenerated": 0,
+    "T4TemplatePath": null,
+    "Tables": [
+        {
+            "Name": "[dbo].[AUTOMOBILI]",
+            "ObjectType": 0
+        },
+        {
+            "Name": "[dbo].[CVJECARA]",
+            "ObjectType": 0
+        },
+        {
+            "Name": "[dbo].[DOGADJAJ]",
+            "ObjectType": 0
+        },
+        {
+            "Name": "[dbo].[DOGADJAJ_CVJECARA]",
+            "ObjectType": 0
+        },
+        {
+            "Name": "[dbo].[DOGADJAJ_GLAZBA]",
+            "ObjectType": 0
+        },
+        {
+            "Name": "[dbo].[DOGADJAJ_RESTORAN]",
+            "ObjectType": 0
+        },
+        {
+            "Name": "[dbo].[DOGADJAJ_SLASTICARNA]",
+            "ObjectType": 0
+        },
+        {
+            "Name": "[dbo].[GLAZBA]",
+            "ObjectType": 0
+        },
+        {
+            "Name": "[dbo].[GLAZBA_PLAYLIST]",
+            "ObjectType": 0
+        },
+        {
+            "Name": "[dbo].[IZVJESTAJ]",
+            "ObjectType": 0
+        },
+        {
+            "Name": "[dbo].[JELO]",
+            "ObjectType": 0
+        },
+        {
+            "Name": "[dbo].[OSTALO]",
+            "ObjectType": 0
+        },
+        {
+            "Name": "[dbo].[PLAYLISTA]",
+            "ObjectType": 0
+        },
+        {
+            "Name": "[dbo].[RESTORAN]",
+            "ObjectType": 0
+        },
+        {
+            "Name": "[dbo].[RESTORAN_JELO]",
+            "ObjectType": 0
+        },
+        {
+            "Name": "[dbo].[SALON]",
+            "ObjectType": 0
+        },
+        {
+            "Name": "[dbo].[SLASTICARNA]",
+            "ObjectType": 0
+        }
+    ],
+    "UiHint": null,
+    "UncountableWords": null,
+    "UseAsyncStoredProcedureCalls": true,
+    "UseBoolPropertiesWithoutDefaultSql": false,
+    "UseDatabaseNames": false,
+    "UseDatabaseNamesForRoutines": true,
+    "UseDateOnlyTimeOnly": true,
+    "UseDbContextSplitting": false,
+    "UseDecimalDataAnnotationForSprocResult": true,
+    "UseFluentApiOnly": true,
+    "UseHandleBars": false,
+    "UseHierarchyId": false,
+    "UseInflector": false,
+    "UseInternalAccessModifiersForSprocsAndFunctions": false,
+    "UseLegacyPluralizer": false,
+    "UseManyToManyEntity": false,
+    "UseNoDefaultConstructor": false,
+    "UseNoNavigations": false,
+    "UseNoObjectFilter": false,
+    "UseNodaTime": false,
+    "UseNullableReferences": false,
+    "UsePrefixNavigationNaming": false,
+    "UseSchemaFolders": false,
+    "UseSchemaNamespaces": false,
+    "UseSpatial": false,
+    "UseT4": false,
+    "UseT4Split": false
+}

@@ -1,0 +1,6 @@
+@Programsko_HostAddress = http://localhost:5269
+
+GET {{Programsko_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###
