@@ -10,11 +10,13 @@ import Salon from './views/AddForms/Salon';
 import Slasticarna from './views/AddForms/Slasticarna';
 import Jelo from './views/AddForms/Jelo';
 import Ostalo from './views/AddForms/Ostalo';
+import Layout from './Layout';
 
 const AppRouter = () => {
   return (
     <Router>
       <Routes>
+      <Route path="/" element={<Layout />}>
         <Route path="/automobili" element={<Automobili />} />
         <Route path="/cvjecara/add" element={<Cvjecara />} />
         <Route path="/dogadjaj/add" element={<Dogadjaj />} />
@@ -25,6 +27,7 @@ const AppRouter = () => {
         <Route path="/salon/add" element={<Salon />} />
         <Route path="/slasticarna/add" element={<Slasticarna />} />
         <Route path="/vjencanje/add" element={<Vjencanje />} />
+      </Route>
       </Routes>
     </Router>
   );
