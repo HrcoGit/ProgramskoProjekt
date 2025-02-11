@@ -10,11 +10,13 @@ import Salon from './views/AddForms/Salon';
 import Slasticarna from './views/AddForms/Slasticarna';
 import Jelo from './views/AddForms/Jelo';
 import Ostalo from './views/AddForms/Ostalo';
+import { Home } from './views/Home';
 
 const AppRouter = () => {
   return (
     <Router>
       <Routes>
+        <Route path="/" element={<Home />} />
         <Route path="/automobili" element={<Automobili />} />
         <Route path="/cvjecara/add" element={<Cvjecara />} />
         <Route path="/dogadjaj/add" element={<Dogadjaj />} />
