@@ -5,18 +5,20 @@ import Vjencanje from './views/AddForms/Vjencanje';
 import Cvjecara from './views/AddForms/Cvjecara';
 import Dogadjaj from './views/AddForms/Dogadjaj';
 import Glazba from './views/AddForms/Glazba';
+import Layout from './Layout';
 import Izvjestaj from './views/AddForms/Izvjestaj';
 import Salon from './views/AddForms/Salon';
 import Slasticarna from './views/AddForms/Slasticarna';
 import Jelo from './views/AddForms/Jelo';
 import Ostalo from './views/AddForms/Ostalo';
-import Layout from './Layout';
+import { Home } from './views/Home';
 
 const AppRouter = () => {
   return (
     <Router>
       <Routes>
       <Route path="/" element={<Layout />}>
+        <Route path="/" element={<Home />} />
         <Route path="/automobili" element={<Automobili />} />
         <Route path="/cvjecara/add" element={<Cvjecara />} />
         <Route path="/dogadjaj/add" element={<Dogadjaj />} />
