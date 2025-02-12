@@ -10,18 +10,18 @@ const Navbar = () => {
 
     return (
         <nav style={styles.navbar}>
-            <div style={{ display: "flex", alignItems: "center"  }}>
-            <div style={styles.logo}><LiaRingSolid /></div>
-            <ul style={styles.navList}>
-                <li style={styles.navItem}><a href="/" style={styles.navLink}>Svatovi</a></li>
-                <li style={styles.navItem}><a href="/" style={styles.navLink}>Krštenja</a></li>
-                <li style={styles.navItem}><a href="/" style={styles.navLink}>Pričesti</a></li>
-                <li style={styles.navItem}><a href="/" style={styles.navLink}>Krizme</a></li>
-            </ul>
+            <div style={{ display: "flex", alignItems: "center" }}>
+                <div style={styles.logo}><LiaRingSolid /></div>
+                <ul style={styles.navList}>
+                    <li style={styles.navItem}><a href="/" style={styles.navLink}>Svatovi</a></li>
+                    <li style={styles.navItem}><a href="/" style={styles.navLink}>Krštenja</a></li>
+                    <li style={styles.navItem}><a href="/" style={styles.navLink}>Pričesti</a></li>
+                    <li style={styles.navItem}><a href="/" style={styles.navLink}>Krizme</a></li>
+                </ul>
             </div>
             <div style={styles.dropdownContainer}>
                 <button style={styles.addNew} onClick={toggleDropdown}>+</button>
-
+    
                 {dropdownOpen && (
                     <div style={styles.dropdownMenu}>
                         <ul style={styles.dropdownList}>
@@ -35,7 +35,11 @@ const Navbar = () => {
                                 "Dodaj Slastičarnu",
                                 "Dodaj Salon"
                             ].map((item, index) => (
-                                <li key={index} style={styles.dropdownItem}>{item}</li>
+                                <li key={index} style={styles.dropdownItem}>
+                                    <a href={`${item.toLowerCase().replace(/\s+/g, '-')}`} style={styles.link}>
+                                        {item}
+                                    </a>
+                                </li>
                             ))}
                         </ul>
                     </div>
