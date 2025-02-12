@@ -1,17 +1,16 @@
-
 import React, { useState } from "react";
 import axios from "axios";
 
 const Glazba = () => {
   const [formData, setFormData] = useState({
-    id_glazba: "",  // Added field for ID_GLAZBA (optional)
+    id_glazba: "",
     ime: "",
     telefon: "",
     email: "",
     provizija: "",
     cijena: "",
-    poc_angazmana: "",
-    kraj_angazmana: "",
+    poc_angazmana: "2025-02-12",
+    kraj_angazmana: "2025-02-12",
     id_dogadjaj_glazba: "",
   });
 
@@ -32,14 +31,14 @@ const Glazba = () => {
       if (response.status === 200 || response.status === 201) {
         setMessage("Podaci uspješno poslani!");
         setFormData({
-          id_glazba: "",  // Reset field
+          id_glazba: "",
           ime: "",
           telefon: "",
           email: "",
           provizija: "",
           cijena: "",
-          poc_angazmana: "",
-          kraj_angazmana: "",
+          poc_angazmana: "2025-02-12",
+          kraj_angazmana: "2025-02-12",
           id_dogadjaj_glazba: "",
         });
       }
@@ -49,22 +48,200 @@ const Glazba = () => {
     }
   };
 
+  const containerStyle = {
+    maxWidth: "450px",
+    margin: "50px auto",
+    backgroundColor: "#f9f9f9",
+    padding: "30px",
+    borderRadius: "10px",
+    boxShadow: "0 4px 8px rgba(0, 0, 0, 0.1)",
+    textAlign: "center",
+  };
+
+  const headingStyle = {
+    fontSize: "24px",
+    marginBottom: "20px",
+    color: "#333",
+  };
+
+  const formStyle = {
+    display: "flex",
+    flexDirection: "column",
+    gap: "15px",
+  };
+
+  const inputStyle = {
+    padding: "10px",
+    fontSize: "16px",
+    border: "1px solid #ccc",
+    borderRadius: "5px",
+    outline: "none",
+    transition: "border 0.3s",
+    position: "relative",
+  };
+
+  const buttonStyle = {
+    padding: "12px",
+    backgroundColor: "#4caf50",
+    color: "white",
+    fontSize: "16px",
+    border: "none",
+    borderRadius: "5px",
+    cursor: "pointer",
+    transition: "background-color 0.3s",
+  };
+
+  const buttonHoverStyle = {
+    backgroundColor: "#45a049",
+  };
+
+  const messageStyle = {
+    marginTop: "20px",
+    fontSize: "18px",
+    color: "#333",
+    fontWeight: "bold",
+  };
+
+  const handleInputFocus = (e) => {
+    e.target.style.borderColor = "#4caf50";
+  };
+
+  const handleInputBlur = (e) => {
+    e.target.style.borderColor = "#ccc";
+  };
+
   return (
-    <div style={{ maxWidth: "400px", margin: "auto", textAlign: "center" }}>
-      <h2>Unos Glazbe</h2>
-      <form onSubmit={handleSubmit}>
-        <input type="text" name="id_glazba" placeholder="ID Glazba (optional)" value={formData.id_glazba} onChange={handleChange} />
-        <input type="text" name="ime" placeholder="Ime" value={formData.ime} onChange={handleChange} required />
-        <input type="text" name="telefon" placeholder="Telefon" value={formData.telefon} onChange={handleChange} required />
-        <input type="email" name="email" placeholder="Email" value={formData.email} onChange={handleChange} required />
-        <input type="number" name="provizija" placeholder="Provizija" value={formData.provizija} onChange={handleChange} step="0.01" required />
-        <input type="number" name="cijena" placeholder="Cijena" value={formData.cijena} onChange={handleChange} step="0.01" required />
-        <input type="date" name="poc_angazmana" placeholder="Početak angažmana" value={formData.poc_angazmana} onChange={handleChange} required />
-        <input type="date" name="kraj_angazmana" placeholder="Kraj angažmana" value={formData.kraj_angazmana} onChange={handleChange} required />
-        <input type="number" name="id_dogadjaj_glazba" placeholder="ID Događaj Glazba" value={formData.id_dogadjaj_glazba} onChange={handleChange} required />
-        <button type="submit">Pošalji</button>
+    <div style={containerStyle}>
+      <h2 style={headingStyle}>Unos Glazbe</h2>
+      <form onSubmit={handleSubmit} style={formStyle}>
+        <div style={{ position: "relative" }}>
+          <input
+            type="text"
+            name="id_glazba"
+            value={formData.id_glazba}
+            onChange={handleChange}
+            style={inputStyle}
+            onFocus={handleInputFocus}
+            onBlur={handleInputBlur}
+            placeholder="ID Glazba (optional)"
+          />
+        </div>
+        <div style={{ position: "relative" }}>
+          <input
+            type="text"
+            name="ime"
+            value={formData.ime}
+            onChange={handleChange}
+            style={inputStyle}
+            onFocus={handleInputFocus}
+            onBlur={handleInputBlur}
+            placeholder="Ime"
+            required
+          />
+        </div>
+        <div style={{ position: "relative" }}>
+          <input
+            type="text"
+            name="telefon"
+            value={formData.telefon}
+            onChange={handleChange}
+            style={inputStyle}
+            onFocus={handleInputFocus}
+            onBlur={handleInputBlur}
+            placeholder="Telefon"
+            required
+          />
+        </div>
+        <div style={{ position: "relative" }}>
+          <input
+            type="email"
+            name="email"
+            value={formData.email}
+            onChange={handleChange}
+            style={inputStyle}
+            onFocus={handleInputFocus}
+            onBlur={handleInputBlur}
+            placeholder="Email"
+            required
+          />
+        </div>
+        <div style={{ position: "relative" }}>
+          <input
+            type="number"
+            name="provizija"
+            value={formData.provizija}
+            onChange={handleChange}
+            style={inputStyle}
+            onFocus={handleInputFocus}
+            onBlur={handleInputBlur}
+            placeholder="Provizija"
+            step="0.01"
+            required
+          />
+        </div>
+        <div style={{ position: "relative" }}>
+          <input
+            type="number"
+            name="cijena"
+            value={formData.cijena}
+            onChange={handleChange}
+            style={inputStyle}
+            onFocus={handleInputFocus}
+            onBlur={handleInputBlur}
+            placeholder="Cijena"
+            step="0.01"
+            required
+          />
+        </div>
+        <div style={{ position: "relative" }}>
+          <input
+            type="date"
+            name="poc_angazmana"
+            value={formData.poc_angazmana}
+            onChange={handleChange}
+            style={inputStyle}
+            onFocus={handleInputFocus}
+            onBlur={handleInputBlur}
+            placeholder="Početak angažmana"
+            required
+          />
+        </div>
+        <div style={{ position: "relative" }}>
+          <input
+            type="date"
+            name="kraj_angazmana"
+            value={formData.kraj_angazmana}
+            onChange={handleChange}
+            style={inputStyle}
+            onFocus={handleInputFocus}
+            onBlur={handleInputBlur}
+            placeholder="Kraj angažmana"
+            required
+          />
+        </div>
+        <div style={{ position: "relative" }}>
+          <input
+            type="number"
+            name="id_dogadjaj_glazba"
+            value={formData.id_dogadjaj_glazba}
+            onChange={handleChange}
+            style={inputStyle}
+            onFocus={handleInputFocus}
+            onBlur={handleInputBlur}
+            placeholder="ID Događaj Glazba"
+            required
+          />
+        </div>
+        <button
+          type="submit"
+          style={buttonStyle}
+          onMouseOver={(e) => (e.target.style.backgroundColor = buttonHoverStyle.backgroundColor)}
+          onMouseOut={(e) => (e.target.style.backgroundColor = "#4caf50")}
+        >
+          Pošalji
+        </button>
       </form>
-      {message && <p>{message}</p>}
+      {message && <p style={messageStyle}>{message}</p>}
     </div>
   );
 };
