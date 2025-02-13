@@ -3,17 +3,22 @@
 using System;
 using System.Collections.Generic;
 
-namespace Programsko.Models;
-
-public partial class DogadjajGlazba
+namespace Programsko.Models
 {
-    public int IdIzvjestaj { get; set; }
+    public partial class DogadjajGlazba
+    {
+        public int IdDg { get; set; } // Primary key
 
-    public int? IdDogadjaj { get; set; }
+        public int? IdDogadjaj { get; set; }
 
-    public int? IdGlazba { get; set; }
+        public int? IdGlazba { get; set; }
 
-    public virtual Dogadjaj IdDogadjajNavigation { get; set; }
+        public DateOnly? PocAngazmana { get; set; }  // Added field
 
-    public virtual Glazba IdGlazbaNavigation { get; set; }
+        public DateOnly? KrajAngazmana { get; set; }  // Added field
+
+        public virtual Dogadjaj IdDogadjajNavigation { get; set; }
+
+        public virtual Glazba IdGlazbaNavigation { get; set; }
+    }
 }

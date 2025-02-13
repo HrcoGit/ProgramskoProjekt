@@ -171,11 +171,11 @@ public partial class ApplicationDbContext : DbContext
 
         modelBuilder.Entity<DogadjajGlazba>(entity =>
         {
-            entity.HasKey(e => e.IdIzvjestaj).HasName("PK__DOGADJAJ__A1CC9CD22DF526F3");
+            entity.HasKey(e => e.IdDg).HasName("PK__DOGADJAJ__A1CC9CD22DF526F3");
 
             entity.ToTable("DOGADJAJ_GLAZBA");
 
-            entity.Property(e => e.IdIzvjestaj)
+            entity.Property(e => e.IdDg)
                 .ValueGeneratedNever()
                 .HasColumnName("ID_IZVJESTAJ");
             entity.Property(e => e.IdDogadjaj).HasColumnName("ID_DOGADJAJ");
