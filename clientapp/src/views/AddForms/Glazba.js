@@ -3,7 +3,6 @@ import axios from "axios";
 
 const Glazba = () => {
   const [formData, setFormData] = useState({
-    id_glazba: "",
     ime: "",
     telefon: "",
     email: "",
@@ -11,7 +10,7 @@ const Glazba = () => {
     cijena: "",
     poc_angazmana: "2025-02-12",
     kraj_angazmana: "2025-02-12",
-    id_dogadjaj_glazba: "",
+    id_dogadjaj_glazba: null,
   });
 
   const [message, setMessage] = useState("");
@@ -31,7 +30,6 @@ const Glazba = () => {
       if (response.status === 200 || response.status === 201) {
         setMessage("Podaci uspješno poslani!");
         setFormData({
-          id_glazba: "",
           ime: "",
           telefon: "",
           email: "",
@@ -39,7 +37,7 @@ const Glazba = () => {
           cijena: "",
           poc_angazmana: "2025-02-12",
           kraj_angazmana: "2025-02-12",
-          id_dogadjaj_glazba: "",
+          id_dogadjaj_glazba: null,
         });
       }
     } catch (error) {
@@ -114,18 +112,6 @@ const Glazba = () => {
     <div style={containerStyle}>
       <h2 style={headingStyle}>Unos Glazbe</h2>
       <form onSubmit={handleSubmit} style={formStyle}>
-        <div style={{ position: "relative" }}>
-          <input
-            type="text"
-            name="id_glazba"
-            value={formData.id_glazba}
-            onChange={handleChange}
-            style={inputStyle}
-            onFocus={handleInputFocus}
-            onBlur={handleInputBlur}
-            placeholder="ID Glazba (optional)"
-          />
-        </div>
         <div style={{ position: "relative" }}>
           <input
             type="text"
@@ -216,19 +202,6 @@ const Glazba = () => {
             onFocus={handleInputFocus}
             onBlur={handleInputBlur}
             placeholder="Kraj angažmana"
-            required
-          />
-        </div>
-        <div style={{ position: "relative" }}>
-          <input
-            type="number"
-            name="id_dogadjaj_glazba"
-            value={formData.id_dogadjaj_glazba}
-            onChange={handleChange}
-            style={inputStyle}
-            onFocus={handleInputFocus}
-            onBlur={handleInputBlur}
-            placeholder="ID Događaj Glazba"
             required
           />
         </div>

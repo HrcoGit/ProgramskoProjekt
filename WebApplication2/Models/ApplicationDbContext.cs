@@ -56,7 +56,7 @@ public partial class ApplicationDbContext : DbContext
             entity.ToTable("AUTOMOBILI");
 
             entity.Property(e => e.IdAutomobili)
-                .ValueGeneratedNever()
+                .ValueGeneratedOnAdd()
                 .HasColumnName("ID_AUTOMOBILI");
             entity.Property(e => e.Cijena)
                 .HasColumnType("decimal(10, 2)")
@@ -90,7 +90,7 @@ public partial class ApplicationDbContext : DbContext
             entity.ToTable("CVJECARA");
 
             entity.Property(e => e.IdCvjecara)
-                .ValueGeneratedNever()
+                .ValueGeneratedOnAdd()
                 .HasColumnName("ID_CVJECARA");
             entity.Property(e => e.Adresa)
                 .IsRequired()
@@ -125,7 +125,7 @@ public partial class ApplicationDbContext : DbContext
             entity.ToTable("DOGADJAJ");
 
             entity.Property(e => e.IdDogadjaj)
-                .ValueGeneratedNever()
+                .ValueGeneratedOnAdd()
                 .HasColumnName("ID_DOGADJAJ");
             entity.Property(e => e.Datum).HasColumnName("DATUM");
             entity.Property(e => e.IdAutomobili).HasColumnName("ID_AUTOMOBILI");
@@ -155,7 +155,7 @@ public partial class ApplicationDbContext : DbContext
             entity.ToTable("DOGADJAJ_CVJECARA");
 
             entity.Property(e => e.IdDc)
-                .ValueGeneratedNever()
+                .ValueGeneratedOnAdd()
                 .HasColumnName("ID_DC");
             entity.Property(e => e.IdCvjecara).HasColumnName("ID_CVJECARA");
             entity.Property(e => e.IdDogadjaj).HasColumnName("ID_DOGADJAJ");
@@ -176,7 +176,7 @@ public partial class ApplicationDbContext : DbContext
             entity.ToTable("DOGADJAJ_GLAZBA");
 
             entity.Property(e => e.IdDg)
-                .ValueGeneratedNever()
+                .ValueGeneratedOnAdd()
                 .HasColumnName("ID_IZVJESTAJ");
             entity.Property(e => e.IdDogadjaj).HasColumnName("ID_DOGADJAJ");
             entity.Property(e => e.IdGlazba).HasColumnName("ID_GLAZBA");
@@ -197,7 +197,7 @@ public partial class ApplicationDbContext : DbContext
             entity.ToTable("DOGADJAJ_RESTORAN");
 
             entity.Property(e => e.IdDr)
-                .ValueGeneratedNever()
+                .ValueGeneratedOnAdd()
                 .HasColumnName("ID_DR");
             entity.Property(e => e.IdDogadjaj).HasColumnName("ID_DOGADJAJ");
             entity.Property(e => e.IdRestoran).HasColumnName("ID_RESTORAN");
@@ -218,7 +218,7 @@ public partial class ApplicationDbContext : DbContext
             entity.ToTable("DOGADJAJ_SLASTICARNA");
 
             entity.Property(e => e.IdDs)
-                .ValueGeneratedNever()
+                .ValueGeneratedOnAdd()
                 .HasColumnName("ID_DS");
             entity.Property(e => e.IdDogadjaj).HasColumnName("ID_DOGADJAJ");
             entity.Property(e => e.IdSlasticarna).HasColumnName("ID_SLASTICARNA");
@@ -239,7 +239,7 @@ public partial class ApplicationDbContext : DbContext
             entity.ToTable("GLAZBA");
 
             entity.Property(e => e.IdGlazba)
-                .ValueGeneratedNever()
+                .ValueGeneratedOnAdd()
                 .HasColumnName("ID_GLAZBA");
             entity.Property(e => e.Cijena)
                 .HasColumnType("decimal(10, 2)")
@@ -272,7 +272,7 @@ public partial class ApplicationDbContext : DbContext
             entity.ToTable("GLAZBA_PLAYLIST");
 
             entity.Property(e => e.IdGp)
-                .ValueGeneratedNever()
+                .ValueGeneratedOnAdd()
                 .HasColumnName("ID_GP");
             entity.Property(e => e.IdGlazba).HasColumnName("ID_GLAZBA");
             entity.Property(e => e.IdPlaylista).HasColumnName("ID_PLAYLISTA");
@@ -293,7 +293,7 @@ public partial class ApplicationDbContext : DbContext
             entity.ToTable("IZVJESTAJ");
 
             entity.Property(e => e.IdIzvjestaj)
-                .ValueGeneratedNever()
+                .ValueGeneratedOnAdd()
                 .HasColumnName("ID_IZVJESTAJ");
             entity.Property(e => e.DatumKreiranja).HasColumnName("DATUM_KREIRANJA");
             entity.Property(e => e.IdDogadjaj).HasColumnName("ID_DOGADJAJ");
@@ -319,7 +319,7 @@ public partial class ApplicationDbContext : DbContext
             entity.ToTable("JELO");
 
             entity.Property(e => e.IdJelo)
-                .ValueGeneratedNever()
+                .ValueGeneratedOnAdd()
                 .HasColumnName("ID_JELO");
             entity.Property(e => e.Cijena)
                 .HasColumnType("decimal(10, 2)")
@@ -348,7 +348,7 @@ public partial class ApplicationDbContext : DbContext
             entity.ToTable("OSTALO");
 
             entity.Property(e => e.IdOstalo)
-                .ValueGeneratedNever()
+                .ValueGeneratedOnAdd()
                 .HasColumnName("ID_OSTALO");
             entity.Property(e => e.Adresa)
                 .IsRequired()
@@ -394,7 +394,7 @@ public partial class ApplicationDbContext : DbContext
             entity.ToTable("PLAYLISTA");
 
             entity.Property(e => e.IdPlaylista)
-                .ValueGeneratedNever()
+                .ValueGeneratedOnAdd()
                 .HasColumnName("ID_PLAYLISTA");
             entity.Property(e => e.Naziv)
                 .IsRequired()
@@ -418,7 +418,7 @@ public partial class ApplicationDbContext : DbContext
             entity.ToTable("RESTORAN");
 
             entity.Property(e => e.IdRestoran)
-                .ValueGeneratedNever()
+                .ValueGeneratedOnAdd()
                 .HasColumnName("ID_RESTORAN");
             entity.Property(e => e.Kontakt)
                 .HasMaxLength(15)
@@ -451,7 +451,7 @@ public partial class ApplicationDbContext : DbContext
             entity.ToTable("RESTORAN_JELO");
 
             entity.Property(e => e.IdRj)
-                .ValueGeneratedNever()
+                .ValueGeneratedOnAdd()
                 .HasColumnName("ID_RJ");
             entity.Property(e => e.IdJelo).HasColumnName("ID_JELO");
             entity.Property(e => e.IdRestoran).HasColumnName("ID_RESTORAN");
@@ -472,7 +472,7 @@ public partial class ApplicationDbContext : DbContext
             entity.ToTable("SALON");
 
             entity.Property(e => e.IdSalon)
-                .ValueGeneratedNever()
+                .ValueGeneratedOnAdd()
                 .HasColumnName("ID_SALON");
             entity.Property(e => e.Adresa)
                 .IsRequired()
@@ -514,7 +514,7 @@ public partial class ApplicationDbContext : DbContext
             entity.ToTable("SLASTICARNA");
 
             entity.Property(e => e.IdSlasticarna)
-                .ValueGeneratedNever()
+                .ValueGeneratedOnAdd()
                 .HasColumnName("ID_SLASTICARNA");
             entity.Property(e => e.Adresa)
                 .IsRequired()

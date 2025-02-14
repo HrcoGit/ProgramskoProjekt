@@ -26,14 +26,17 @@ const Navbar = () => {
                     <div style={styles.dropdownMenu}>
                         <ul style={styles.dropdownList}>
                             {[
+                               // "Dodaj Događaj",  imam drugu ideju za ovo
                                 "Dodaj Cvjećarnu",
                                 "Dodaj Automobil",
                                 "Dodaj Glazbu",
-                                "Dodaj Događaj",
+                                "Dodaj Izvještaj",
                                 "Dodaj Restoran",
                                 "Dodaj Jelo",
+                                "Dodaj Meni",
                                 "Dodaj Slastičarnu",
-                                "Dodaj Salon"
+                                "Dodaj Salon",
+                                "Dodaj Ostalo",
                             ].map((item, index) => (
                                 <li key={index} style={styles.dropdownItem}>
                                     <a href={`${item.toLowerCase().replace(/\s+/g, '-')}`} style={styles.link}>
@@ -58,6 +61,12 @@ const styles = {
         padding: "10px 20px",
         color: "#fff",
         position: "relative"
+    },
+    link: {
+        textDecoration: "none",
+        color: "inherit",         
+        fontSize: "16px",
+        display: "block",
     },
     logo: {
         display: "flex",

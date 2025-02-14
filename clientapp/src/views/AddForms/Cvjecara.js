@@ -3,7 +3,6 @@ import axios from "axios";
 
 const Cvjecara = () => {
   const [formData, setFormData] = useState({
-    id_cvjecara: "",
     ime: "",
     adresa: "",
     telefon: "",
@@ -25,7 +24,7 @@ const Cvjecara = () => {
     e.preventDefault();
 
     try {
-      const response = await axios.post("http://localhost:5269/api/cvjecare", formData);
+      const response = await axios.post("http://localhost:5269/api/cvjecara", formData);
       if (response.status === 200 || response.status === 201) {
         setMessage("Podaci uspješno poslani!");
         setFormData({

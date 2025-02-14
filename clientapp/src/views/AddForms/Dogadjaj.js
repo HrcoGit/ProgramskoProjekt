@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import axios from "axios";
 
-const Dogadjaj = () => {
+const Dogadjaj = ({ vrsta }) => {
   const [formData, setFormData] = useState({
     id_dogadjaj: "",
     datum: "",

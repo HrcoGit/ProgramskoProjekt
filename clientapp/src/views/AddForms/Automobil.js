@@ -9,7 +9,7 @@ const Automobil = () => {
     provizija: "",
     pocAngazmana: "2025-02-12",
     krajAngazmana: "2025-02-12",
-    idDogadjaj: "",
+    idDogadjaj: null,
   });
 
   const [message, setMessage] = useState("");
@@ -26,29 +26,14 @@ const Automobil = () => {
     e.preventDefault();
 
     const payload = {
-      idAutomobili: 0,
       marka: formData.marka,
       model: formData.model,
       cijena: parseFloat(formData.cijena),
       provizija: parseFloat(formData.provizija),
       pocAngazmana: formData.pocAngazmana,
       krajAngazmana: formData.krajAngazmana,
-      idDogadjaj: parseInt(formData.idDogadjaj),
-      idDogadjajNavigation: {
-        idDogadjaj: 0,
-        datum: "2025-02-12",
-        kontakt: "string",
-        tipDogadjaja: "string",
-        idDg: 0,
-        idDc: 0,
-        idDs: 0,
-        idOstalo: 0,
-        idIzvjestaj: 0,
-        idAutomobili: 0,
-        idSalon: 0,
-        idCatering: 0,
-        automobili: ["string"],
-      },
+      idDogadjaj: null,
+      idDogadjajNavigation: null
     };
 
     try {
@@ -187,17 +172,6 @@ const Automobil = () => {
           type="date"
           name="krajAngazmana"
           value={formData.krajAngazmana}
-          onChange={handleChange}
-          style={inputStyle}
-          onFocus={handleInputFocus}
-          onBlur={handleInputBlur}
-          required
-        />
-        <input
-          type="text"
-          name="idDogadjaj"
-          placeholder="ID Dogadjaja"
-          value={formData.idDogadjaj}
           onChange={handleChange}
           style={inputStyle}
           onFocus={handleInputFocus}
