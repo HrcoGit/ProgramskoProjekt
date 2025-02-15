@@ -70,6 +70,7 @@ const Salon = () => {
     display: "flex",
     flexDirection: "column",
     gap: "15px",
+    alignItems: "center", // Centriranje formi
   };
 
   const inputStyle = {
@@ -79,6 +80,7 @@ const Salon = () => {
     borderRadius: "5px",
     outline: "none",
     transition: "border 0.3s",
+    width: "100%", // Dodano da bude jednako širine
   };
 
   const buttonStyle = {
@@ -90,6 +92,7 @@ const Salon = () => {
     borderRadius: "5px",
     cursor: "pointer",
     transition: "background-color 0.3s",
+    width: "100%", // I dugme ima istu širinu
   };
 
   const buttonHoverStyle = {
@@ -115,123 +118,105 @@ const Salon = () => {
     <div style={containerStyle}>
       <h2 style={headingStyle}>Unos Podataka za Salon</h2>
       <form onSubmit={handleSubmit} style={formStyle}>
-        <div style={{ position: "relative" }}>
-          <input
-            type="text"
-            name="ime"
-            placeholder="Ime"
-            value={formData.ime}
-            onChange={handleChange}
-            style={inputStyle}
-            onFocus={handleInputFocus}
-            onBlur={handleInputBlur}
-            required
-          />
-        </div>
-        <div style={{ position: "relative" }}>
-          <input
-            type="text"
-            name="adresa"
-            placeholder="Adresa"
-            value={formData.adresa}
-            onChange={handleChange}
-            style={inputStyle}
-            onFocus={handleInputFocus}
-            onBlur={handleInputBlur}
-            required
-          />
-        </div>
-        <div style={{ position: "relative" }}>
-          <input
-            type="text"
-            name="telefon"
-            placeholder="Telefon"
-            value={formData.telefon}
-            onChange={handleChange}
-            style={inputStyle}
-            onFocus={handleInputFocus}
-            onBlur={handleInputBlur}
-            required
-          />
-        </div>
-        <div style={{ position: "relative" }}>
-          <input
-            type="number"
-            name="provizija"
-            placeholder="Provizija"
-            value={formData.provizija}
-            onChange={handleChange}
-            style={inputStyle}
-            onFocus={handleInputFocus}
-            onBlur={handleInputBlur}
-            required
-          />
-        </div>
-        <div style={{ position: "relative" }}>
-          <input
-            type="number"
-            name="cijena"
-            placeholder="Cijena"
-            value={formData.cijena}
-            onChange={handleChange}
-            style={inputStyle}
-            onFocus={handleInputFocus}
-            onBlur={handleInputBlur}
-            required
-          />
-        </div>
-        <div style={{ position: "relative" }}>
-          <input
-            type="number"
-            name="broj_mjesta"
-            placeholder="Broj Mjesta"
-            value={formData.broj_mjesta}
-            onChange={handleChange}
-            style={inputStyle}
-            onFocus={handleInputFocus}
-            onBlur={handleInputBlur}
-            required
-          />
-        </div>
-        <div style={{ position: "relative" }}>
-          <input
-            type="number"
-            name="velicina"
-            placeholder="Velicina"
-            value={formData.velicina}
-            onChange={handleChange}
-            style={inputStyle}
-            onFocus={handleInputFocus}
-            onBlur={handleInputBlur}
-            required
-          />
-        </div>
-        <div style={{ position: "relative" }}>
-          <input
-            type="date"
-            name="poc_angazmana"
-            placeholder="Početak Angažmana"
-            value={formData.poc_angazmana}
-            onChange={handleChange}
-            style={inputStyle}
-            onFocus={handleInputFocus}
-            onBlur={handleInputBlur}
-            required
-          />
-        </div>
-        <div style={{ position: "relative" }}>
-          <input
-            type="date"
-            name="kraj_angazmana"
-            placeholder="Kraj Angažmana"
-            value={formData.kraj_angazmana}
-            onChange={handleChange}
-            style={inputStyle}
-            onFocus={handleInputFocus}
-            onBlur={handleInputBlur}
-            required
-          />
-        </div>
+        <input
+          type="text"
+          name="ime"
+          placeholder="Ime"
+          value={formData.ime}
+          onChange={handleChange}
+          style={inputStyle}
+          onFocus={handleInputFocus}
+          onBlur={handleInputBlur}
+          required
+        />
+        <input
+          type="text"
+          name="adresa"
+          placeholder="Adresa"
+          value={formData.adresa}
+          onChange={handleChange}
+          style={inputStyle}
+          onFocus={handleInputFocus}
+          onBlur={handleInputBlur}
+          required
+        />
+        <input
+          type="text"
+          name="telefon"
+          placeholder="Telefon"
+          value={formData.telefon}
+          onChange={handleChange}
+          style={inputStyle}
+          onFocus={handleInputFocus}
+          onBlur={handleInputBlur}
+          required
+        />
+        <input
+          type="number"
+          name="provizija"
+          placeholder="Provizija"
+          value={formData.provizija}
+          onChange={handleChange}
+          style={inputStyle}
+          onFocus={handleInputFocus}
+          onBlur={handleInputBlur}
+          required
+        />
+        <input
+          type="number"
+          name="cijena"
+          placeholder="Cijena"
+          value={formData.cijena}
+          onChange={handleChange}
+          style={inputStyle}
+          onFocus={handleInputFocus}
+          onBlur={handleInputBlur}
+          required
+        />
+        <input
+          type="number"
+          name="broj_mjesta"
+          placeholder="Broj Mjesta"
+          value={formData.broj_mjesta}
+          onChange={handleChange}
+          style={inputStyle}
+          onFocus={handleInputFocus}
+          onBlur={handleInputBlur}
+          required
+        />
+        <input
+          type="number"
+          name="velicina"
+          placeholder="Velicina"
+          value={formData.velicina}
+          onChange={handleChange}
+          style={inputStyle}
+          onFocus={handleInputFocus}
+          onBlur={handleInputBlur}
+          required
+        />
+        <input
+          type="date"
+          name="poc_angazmana"
+          placeholder="Početak Angažmana"
+          value={formData.poc_angazmana}
+          onChange={handleChange}
+          style={inputStyle}
+          onFocus={handleInputFocus}
+          onBlur={handleInputBlur}
+          required
+        />
+        <input
+          type="date"
+          name="kraj_angazmana"
+          placeholder="Kraj Angažmana"
+          value={formData.kraj_angazmana}
+          onChange={handleChange}
+          style={inputStyle}
+          onFocus={handleInputFocus}
+          onBlur={handleInputBlur}
+          required
+        />
         <button
           type="submit"
           style={buttonStyle}

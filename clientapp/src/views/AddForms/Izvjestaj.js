@@ -114,7 +114,7 @@ const Izvjestaj = () => {
         />
         <textarea
           name="podatci"
-          placeholder="Podaci"
+          placeholder="Podatci"
           value={formData.podatci}
           onChange={handleChange}
           style={{ ...inputStyle, height: "80px" }}

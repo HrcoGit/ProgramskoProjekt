@@ -60,6 +60,7 @@ const Jelo = () => {
     display: "flex",
     flexDirection: "column",
     gap: "15px",
+    alignItems: "center", // Centriranje formi
   };
 
   const inputStyle = {
@@ -69,6 +70,7 @@ const Jelo = () => {
     borderRadius: "5px",
     outline: "none",
     transition: "border 0.3s",
+    width: "100%", // Dodano da bude jednako širine
   };
 
   const textareaStyle = {
@@ -79,6 +81,7 @@ const Jelo = () => {
     outline: "none",
     transition: "border 0.3s",
     resize: "vertical",
+    width: "100%", // Dodano da bude jednako širine
   };
 
   const buttonStyle = {
@@ -90,6 +93,7 @@ const Jelo = () => {
     borderRadius: "5px",
     cursor: "pointer",
     transition: "background-color 0.3s",
+    width: "100%", // I dugme ima istu širinu
   };
 
   const buttonHoverStyle = {
@@ -115,69 +119,59 @@ const Jelo = () => {
     <div style={containerStyle}>
       <h2 style={headingStyle}>Unos Jela</h2>
       <form onSubmit={handleSubmit} style={formStyle}>
-        <div style={{ position: "relative" }}>
-          <input
-            type="text"
-            name="naziv"
-            placeholder="Naziv Jela"
-            value={formData.naziv}
-            onChange={handleChange}
-            style={inputStyle}
-            onFocus={handleInputFocus}
-            onBlur={handleInputBlur}
-            required
-          />
-        </div>
-        <div style={{ position: "relative" }}>
-          <textarea
-            name="opis"
-            placeholder="Opis Jela"
-            value={formData.opis}
-            onChange={handleChange}
-            style={textareaStyle}
-            onFocus={handleInputFocus}
-            onBlur={handleInputBlur}
-            required
-          />
-        </div>
-        <div style={{ position: "relative" }}>
-          <input
-            type="number"
-            name="cijena"
-            placeholder="Cijena"
-            value={formData.cijena}
-            onChange={handleChange}
-            style={inputStyle}
-            onFocus={handleInputFocus}
-            onBlur={handleInputBlur}
-            required
-          />
-        </div>
-        <div style={{ position: "relative" }}>
-          <input
-            type="text"
-            name="vrsta_jela"
-            placeholder="Vrsta Jela"
-            value={formData.vrsta_jela}
-            onChange={handleChange}
-            style={inputStyle}
-            onFocus={handleInputFocus}
-            onBlur={handleInputBlur}
-            required
-          />
-        </div>
-        <div style={{ position: "relative" }}>
-          <textarea
-            name="sastojci"
-            placeholder="Sastojci"
-            value={formData.sastojci}
-            onChange={handleChange}
-            style={textareaStyle}
-            onFocus={handleInputFocus}
-            onBlur={handleInputBlur}
-            required
-          />
-        </div>
+        <input
+          type="text"
+          name="naziv"
+          placeholder="Naziv Jela"
+          value={formData.naziv}
+          onChange={handleChange}
+          style={inputStyle}
+          onFocus={handleInputFocus}
+          onBlur={handleInputBlur}
+          required
+        />
+        <textarea
+          name="opis"
+          placeholder="Opis Jela"
+          value={formData.opis}
+          onChange={handleChange}
+          style={textareaStyle}
+          onFocus={handleInputFocus}
+          onBlur={handleInputBlur}
+          required
+        />
+        <input
+          type="number"
+          name="cijena"
+          placeholder="Cijena"
+          value={formData.cijena}
+          onChange={handleChange}
+          style={inputStyle}
+          onFocus={handleInputFocus}
+          onBlur={handleInputBlur}
+          required
+        />
+        <input
+          type="text"
+          name="vrsta_jela"
+          placeholder="Vrsta Jela"
+          value={formData.vrsta_jela}
+          onChange={handleChange}
+          style={inputStyle}
+          onFocus={handleInputFocus}
+          onBlur={handleInputBlur}
+          required
+        />
+        <textarea
+          name="sastojci"
+          placeholder="Sastojci"
+          value={formData.sastojci}
+          onChange={handleChange}
+          style={textareaStyle}
+          onFocus={handleInputFocus}
+          onBlur={handleInputBlur}
+          required
+        />
         <button
           type="submit"
           style={buttonStyle}

@@ -62,6 +62,7 @@ const Slasticarna = () => {
     display: "flex",
     flexDirection: "column",
     gap: "15px",
+    alignItems: "center", // Centriranje formi
   };
 
   const inputStyle = {
@@ -71,6 +72,7 @@ const Slasticarna = () => {
     borderRadius: "5px",
     outline: "none",
     transition: "border 0.3s",
+    width: "100%", // Dodano da bude jednako širine
   };
 
   const buttonStyle = {
@@ -82,6 +84,7 @@ const Slasticarna = () => {
     borderRadius: "5px",
     cursor: "pointer",
     transition: "background-color 0.3s",
+    width: "100%", // I dugme ima istu širinu
   };
 
   const buttonHoverStyle = {
@@ -107,84 +110,72 @@ const Slasticarna = () => {
     <div style={containerStyle}>
       <h2 style={headingStyle}>Unos Podataka za Slastičarnu</h2>
       <form onSubmit={handleSubmit} style={formStyle}>
-        <div style={{ position: "relative" }}>
-          <input
-            type="text"
-            name="ime"
-            placeholder="Ime"
-            value={formData.ime}
-            onChange={handleChange}
-            style={inputStyle}
-            onFocus={handleInputFocus}
-            onBlur={handleInputBlur}
-            required
-          />
-        </div>
-        <div style={{ position: "relative" }}>
-          <input
-            type="text"
-            name="adresa"
-            placeholder="Adresa"
-            value={formData.adresa}
-            onChange={handleChange}
-            style={inputStyle}
-            onFocus={handleInputFocus}
-            onBlur={handleInputBlur}
-            required
-          />
-        </div>
-        <div style={{ position: "relative" }}>
-          <input
-            type="text"
-            name="telefon"
-            placeholder="Telefon"
-            value={formData.telefon}
-            onChange={handleChange}
-            style={inputStyle}
-            onFocus={handleInputFocus}
-            onBlur={handleInputBlur}
-            required
-          />
-        </div>
-        <div style={{ position: "relative" }}>
-          <input
-            type="email"
-            name="email"
-            placeholder="Email"
-            value={formData.email}
-            onChange={handleChange}
-            style={inputStyle}
-            onFocus={handleInputFocus}
-            onBlur={handleInputBlur}
-            required
-          />
-        </div>
-        <div style={{ position: "relative" }}>
-          <input
-            type="number"
-            name="provizija"
-            placeholder="Provizija"
-            value={formData.provizija}
-            onChange={handleChange}
-            style={inputStyle}
-            onFocus={handleInputFocus}
-            onBlur={handleInputBlur}
-            required
-          />
-        </div>
-        <div style={{ position: "relative" }}>
-          <input
-            type="number"
-            name="cijena"
-            placeholder="Cijena"
-            value={formData.cijena}
-            onChange={handleChange}
-            style={inputStyle}
-            onFocus={handleInputFocus}
-            onBlur={handleInputBlur}
-            required
-          />
-        </div>
+        <input
+          type="text"
+          name="ime"
+          placeholder="Ime"
+          value={formData.ime}
+          onChange={handleChange}
+          style={inputStyle}
+          onFocus={handleInputFocus}
+          onBlur={handleInputBlur}
+          required
+        />
+        <input
+          type="text"
+          name="adresa"
+          placeholder="Adresa"
+          value={formData.adresa}
+          onChange={handleChange}
+          style={inputStyle}
+          onFocus={handleInputFocus}
+          onBlur={handleInputBlur}
+          required
+        />
+        <input
+          type="text"
+          name="telefon"
+          placeholder="Telefon"
+          value={formData.telefon}
+          onChange={handleChange}
+          style={inputStyle}
+          onFocus={handleInputFocus}
+          onBlur={handleInputBlur}
+          required
+        />
+        <input
+          type="email"
+          name="email"
+          placeholder="Email"
+          value={formData.email}
+          onChange={handleChange}
+          style={inputStyle}
+          onFocus={handleInputFocus}
+          onBlur={handleInputBlur}
+          required
+        />
+        <input
+          type="number"
+          name="provizija"
+          placeholder="Provizija"
+          value={formData.provizija}
+          onChange={handleChange}
+          style={inputStyle}
+          onFocus={handleInputFocus}
+          onBlur={handleInputBlur}
+          required
+        />
+        <input
+          type="number"
+          name="cijena"
+          placeholder="Cijena"
+          value={formData.cijena}
+          onChange={handleChange}
+          style={inputStyle}
+          onFocus={handleInputFocus}
+          onBlur={handleInputBlur}
+          required
+        />
         <button
           type="submit"
           style={buttonStyle}
