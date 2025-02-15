@@ -14,6 +14,7 @@ import Ostalo from './views/AddForms/Ostalo';
 import { Home } from './views/Home';
 import Automobil from './views/AddForms/Automobil';
 import Meni from './views/AddForms/Meni';
+import EditAutomobili from './views/EditForme/EditAutomobili';
 
 const AppRouter = () => {
   return (
@@ -36,6 +37,8 @@ const AppRouter = () => {
         <Route path="/dodaj-salon" element={<Salon />} />
         <Route path="/dodaj-restoran" element={<Restoran />} />
         <Route path="/dodaj-slastičarnu" element={<Slasticarna />} />
+        <Route path="/edit-automobil/:id" element={<EditAutomobili />} />
+
       </Route>
       </Routes>
     </Router>
