@@ -38,10 +38,10 @@ const Automobil = () => {
 
     try {
       const response = await axios.post("http://localhost:5269/api/automobili", payload);
-      setMessage("Form submitted successfully!");
+      setMessage("Podatci uspješno poslani!");
     } catch (error) {
       console.error("Error:", error);
-      setMessage("There was an error submitting the form.");
+      setMessage("Greška prilikom slanja podataka.");
     }
   };
 

@@ -81,7 +81,7 @@ const Meni = () => {
         })
       );
 
-      setMessage("Podaci uspješno poslani!");
+      setMessage("Podatci uspješno poslani!");
       setFormData({ idRestoran: "", selectedJela: [] });
     } catch (error) {
       setMessage("Greška prilikom slanja podataka.");

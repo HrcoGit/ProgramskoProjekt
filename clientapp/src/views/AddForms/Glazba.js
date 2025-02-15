@@ -28,7 +28,7 @@ const Glazba = () => {
     try {
       const response = await axios.post("http://localhost:5269/api/glazba", formData);
       if (response.status === 200 || response.status === 201) {
-        setMessage("Podaci uspješno poslani!");
+        setMessage("Podatci uspješno poslani!");
         setFormData({
           ime: "",
           telefon: "",
@@ -75,7 +75,10 @@ const Glazba = () => {
     borderRadius: "5px",
     outline: "none",
     transition: "border 0.3s",
-    position: "relative",
+  };
+
+  const inputFocusStyle = {
+    borderColor: "#4caf50",
   };
 
   const buttonStyle = {
@@ -110,101 +113,85 @@ const Glazba = () => {
 
   return (
     <div style={containerStyle}>
-      <h2 style={headingStyle}>Unos Glazbe</h2>
+      <h2 style={headingStyle}>Dodaj glazbeni angažman</h2>
       <form onSubmit={handleSubmit} style={formStyle}>
-        <div style={{ position: "relative" }}>
-          <input
-            type="text"
-            name="ime"
-            value={formData.ime}
-            onChange={handleChange}
-            style={inputStyle}
-            onFocus={handleInputFocus}
-            onBlur={handleInputBlur}
-            placeholder="Ime"
-            required
-          />
-        </div>
-        <div style={{ position: "relative" }}>
-          <input
-            type="text"
-            name="telefon"
-            value={formData.telefon}
-            onChange={handleChange}
-            style={inputStyle}
-            onFocus={handleInputFocus}
-            onBlur={handleInputBlur}
-            placeholder="Telefon"
-            required
-          />
-        </div>
-        <div style={{ position: "relative" }}>
-          <input
-            type="email"
-            name="email"
-            value={formData.email}
-            onChange={handleChange}
-            style={inputStyle}
-            onFocus={handleInputFocus}
-            onBlur={handleInputBlur}
-            placeholder="Email"
-            required
-          />
-        </div>
-        <div style={{ position: "relative" }}>
-          <input
-            type="number"
-            name="provizija"
-            value={formData.provizija}
-            onChange={handleChange}
-            style={inputStyle}
-            onFocus={handleInputFocus}
-            onBlur={handleInputBlur}
-            placeholder="Provizija"
-            step="0.01"
-            required
-          />
-        </div>
-        <div style={{ position: "relative" }}>
-          <input
-            type="number"
-            name="cijena"
-            value={formData.cijena}
-            onChange={handleChange}
-            style={inputStyle}
-            onFocus={handleInputFocus}
-            onBlur={handleInputBlur}
-            placeholder="Cijena"
-            step="0.01"
-            required
-          />
-        </div>
-        <div style={{ position: "relative" }}>
-          <input
-            type="date"
-            name="poc_angazmana"
-            value={formData.poc_angazmana}
-            onChange={handleChange}
-            style={inputStyle}
-            onFocus={handleInputFocus}
-            onBlur={handleInputBlur}
-            placeholder="Početak angažmana"
-            required
-          />
-        </div>
-        <div style={{ position: "relative" }}>
-          <input
-            type="date"
-            name="kraj_angazmana"
-            value={formData.kraj_angazmana}
-            onChange={handleChange}
-            style={inputStyle}
-            onFocus={handleInputFocus}
-            onBlur={handleInputBlur}
-            placeholder="Kraj angažmana"
-            required
-          />
-        </div>
+        <input
+          type="text"
+          name="ime"
+          placeholder="Ime izvođača"
+          value={formData.ime}
+          onChange={handleChange}
+          style={inputStyle}
+          onFocus={handleInputFocus}
+          onBlur={handleInputBlur}
+          required
+        />
+        <input
+          type="text"
+          name="telefon"
+          placeholder="Telefon"
+          value={formData.telefon}
+          onChange={handleChange}
+          style={inputStyle}
+          onFocus={handleInputFocus}
+          onBlur={handleInputBlur}
+          required
+        />
+        <input
+          type="email"
+          name="email"
+          placeholder="Email"
+          value={formData.email}
+          onChange={handleChange}
+          style={inputStyle}
+          onFocus={handleInputFocus}
+          onBlur={handleInputBlur}
+          required
+        />
+        <input
+          type="number"
+          step="0.01"
+          name="provizija"
+          placeholder="Provizija (%)"
+          value={formData.provizija}
+          onChange={handleChange}
+          style={inputStyle}
+          onFocus={handleInputFocus}
+          onBlur={handleInputBlur}
+          required
+        />
+        <input
+          type="number"
+          step="0.01"
+          name="cijena"
+          placeholder="Cijena (KM)"
+          value={formData.cijena}
+          onChange={handleChange}
+          style={inputStyle}
+          onFocus={handleInputFocus}
+          onBlur={handleInputBlur}
+          required
+        />
+        <input
+          type="date"
+          name="poc_angazmana"
+          value={formData.poc_angazmana}
+          onChange={handleChange}
+          style={inputStyle}
+          onFocus={handleInputFocus}
+          onBlur={handleInputBlur}
+          required
+        />
+        <input
+          type="date"
+          name="kraj_angazmana"
+          value={formData.kraj_angazmana}
+          onChange={handleChange}
+          style={inputStyle}
+          onFocus={handleInputFocus}
+          onBlur={handleInputBlur}
+          required
+        />
         <button
           type="submit"
           style={buttonStyle}

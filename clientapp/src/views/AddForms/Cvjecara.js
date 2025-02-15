@@ -26,7 +26,7 @@ const Cvjecara = () => {
     try {
       const response = await axios.post("http://localhost:5269/api/cvjecara", formData);
       if (response.status === 200 || response.status === 201) {
-        setMessage("Podaci uspješno poslani!");
+        setMessage("Podatci uspješno poslani!");
         setFormData({
           ime: "",
           adresa: "",

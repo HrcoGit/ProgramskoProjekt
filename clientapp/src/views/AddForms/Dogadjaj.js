@@ -32,7 +32,7 @@ const Dogadjaj = ({ vrsta }) => {
     try {
       const response = await axios.post("http://localhost:5269/api/dogadjaji", formData);
       if (response.status === 200 || response.status === 201) {
-        setMessage("Podaci uspješno poslani!");
+        setMessage("Podatci uspješno poslani!");
         setFormData({
           id_dogadjaj: "",
           datum: "",
