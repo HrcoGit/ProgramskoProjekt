@@ -1,51 +1,149 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import axios from "axios";
 
 const Dogadjaj = ({ vrsta }) => {
   const [formData, setFormData] = useState({
-    id_dogadjaj: "",
     datum: "",
     kontakt: "",
-    tip_dogadjaja: "",
-    id_dg: "",
-    id_dc: "",
-    id_ds: "",
-    id_ostalo: "",
-    id_izvjestaj: "",
-    id_automobili: "",
-    id_salon: "",
-    id_catering: "",
+    tipDogadjaja: vrsta,
+    idDg: "",
+    idDc: "",
+    idDs: "",
+    idOstalo: "",
+    idIzvjestaj: "",
+    idAutomobili: "",
+    idSalon: "",
   });
 
   const [message, setMessage] = useState("");
 
+  const [glazba, setGlazba] = useState([]);
+  const [cvjecara, setCvjecara] = useState([]);
+  const [slasticarna, setSlasticarna] = useState([]);
+  const [ostalo, setOstalo] = useState([]);
+  const [automobili, setAutomobili] = useState([]);
+  const [salon, setSalon] = useState([]);
+
+  // Update tip_dogadjaja when vrsta prop changes
+  useEffect(() => {
+    setFormData((prev) => ({ ...prev, tipDogadjaja: vrsta }));
+  }, [vrsta]);
+
+  // Fetch options for each select
+  useEffect(() => {
+    const fetchGlazba = async () => {
+      try {
+        const response = await axios.get("http://localhost:5269/api/glazba");
+        setGlazba(response.data);
+      } catch (error) {
+        console.error("Error fetching glazba:", error);
+      }
+    };
+
+    const fetchCvjecara = async () => {
+      try {
+        const response = await axios.get("http://localhost:5269/api/cvjecara");
+        setCvjecara(response.data);
+      } catch (error) {
+        console.error("Error fetching cvjecara:", error);
+      }
+    };
+
+    const fetchSlasticarna = async () => {
+      try {
+        const response = await axios.get("http://localhost:5269/api/slasticarna");
+        setSlasticarna(response.data);
+      } catch (error) {
+        console.error("Error fetching slasticarna:", error);
+      }
+    };
+
+    const fetchOstalo = async () => {
+      try {
+        const response = await axios.get("http://localhost:5269/api/ostalo");
+        setOstalo(response.data);
+      } catch (error) {
+        console.error("Error fetching ostalo:", error);
+      }
+    };
+
+    const fetchAutomobili = async () => {
+      try {
+        const response = await axios.get("http://localhost:5269/api/automobili");
+        setAutomobili(response.data);
+      } catch (error) {
+        console.error("Error fetching automobili:", error);
+      }
+    };
+
+    const fetchSalon = async () => {
+      try {
+        const response = await axios.get("http://localhost:5269/api/salon");
+        setSalon(response.data);
+      } catch (error) {
+        console.error("Error fetching salon:", error);
+      }
+    };
+
+    fetchGlazba();
+    fetchCvjecara();
+    fetchSlasticarna();
+    fetchOstalo();
+    fetchAutomobili();
+    fetchSalon();
+  }, []);
+
+  // Handle change with numeric conversion for fields starting with "id_"
   const handleChange = (e) => {
-    setFormData({
-      ...formData,
-      [e.target.name]: e.target.value,
-    });
+    const { name, value } = e.target;
+    setFormData((prev) => ({
+      ...prev,
+      [name]:
+        name.startsWith("id_") && value !== ""
+          ? Number(value)
+          : value,
+    }));
   };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
 
+    if (!formData.datum || !formData.kontakt) {
+      setMessage("Molimo popunite sva obavezna polja.");
+      return;
+    }
+
     try {
-      const response = await axios.post("http://localhost:5269/api/dogadjaji", formData);
+      const payload = {
+        datum: formData.datum,
+        kontakt: formData.kontakt,
+        tipDogadjaja: formData.tipDogadjaja,
+        idDg: formData.idDg === "" ? null : formData.idDg,
+        idDc: formData.idDc === "" ? null : formData.idDc,
+        idDs: formData.idDs === "" ? null : formData.idDs,
+        idOstalo: formData.idOstalo === "" ? null : formData.idOstalo,
+        idIzvjestaj: null,
+        idAutomobili: formData.idAutomobili === "" ? null : formData.idAutomobili,
+        idSalon: formData.id_salon === "" ? null : formData.id_salon,
+        idCatering: null,
+      };
+
+      console.log("Payload:", payload);
+
+      const response = await axios.post("http://localhost:5269/api/dogadjaj", payload);
       if (response.status === 200 || response.status === 201) {
         setMessage("Podatci uspješno poslani!");
         setFormData({
-          id_dogadjaj: "",
           datum: "",
           kontakt: "",
-          tip_dogadjaja: "",
-          id_dg: "",
-          id_dc: "",
-          id_ds: "",
-          id_ostalo: "",
-          id_izvjestaj: "",
-          id_automobili: "",
+          tipDogadjaja: vrsta,
+          idDg: "",
+          idDc: "",
+          idDs: "",
+          idOstalo: "",
+          idIzvjestaj: "",
+          idAutomobili: "",
           id_salon: "",
-          id_catering: "",
         });
       }
     } catch (error) {
@@ -54,6 +152,7 @@ const Dogadjaj = ({ vrsta }) => {
     }
   };
 
+  // Styles
   const containerStyle = {
     width: "100%",
     maxWidth: "450px",
@@ -87,6 +186,9 @@ const Dogadjaj = ({ vrsta }) => {
     width: "100%",
     boxSizing: "border-box",
   };
+
+  // Set selectStyle to have readable text and background
+  const selectStyle = { ...inputStyle, color: "#333", backgroundColor: "#fff" };
 
   const buttonStyle = {
     padding: "12px",
@@ -125,17 +227,6 @@ const Dogadjaj = ({ vrsta }) => {
       <h2 style={headingStyle}>Dodaj događaj</h2>
       <form onSubmit={handleSubmit} style={formStyle}>
         <input
-          type="number"
-          name="id_dogadjaj"
-          placeholder="ID Događaj"
-          value={formData.id_dogadjaj}
-          onChange={handleChange}
-          style={inputStyle}
-          onFocus={handleInputFocus}
-          onBlur={handleInputBlur}
-          required
-        />
-        <input
           type="date"
           name="datum"
           value={formData.datum}
@@ -156,102 +247,77 @@ const Dogadjaj = ({ vrsta }) => {
           onBlur={handleInputBlur}
           required
         />
-        <input
-          type="text"
-          name="tip_dogadjaja"
-          placeholder="Tip događaja"
-          value={formData.tip_dogadjaja}
-          onChange={handleChange}
-          style={inputStyle}
-          onFocus={handleInputFocus}
-          onBlur={handleInputBlur}
-          required
-        />
-        <input
-          type="number"
-          name="id_dg"
-          placeholder="ID DG"
-          value={formData.id_dg}
-          onChange={handleChange}
-          style={inputStyle}
-          onFocus={handleInputFocus}
-          onBlur={handleInputBlur}
-        />
-        <input
-          type="number"
-          name="id_dc"
-          placeholder="ID DC"
-          value={formData.id_dc}
-          onChange={handleChange}
-          style={inputStyle}
-          onFocus={handleInputFocus}
-          onBlur={handleInputBlur}
-        />
-        <input
-          type="number"
-          name="id_ds"
-          placeholder="ID DS"
-          value={formData.id_ds}
-          onChange={handleChange}
-          style={inputStyle}
-          onFocus={handleInputFocus}
-          onBlur={handleInputBlur}
-        />
-        <input
-          type="number"
-          name="id_ostalo"
-          placeholder="ID Ostalo"
-          value={formData.id_ostalo}
-          onChange={handleChange}
-          style={inputStyle}
-          onFocus={handleInputFocus}
-          onBlur={handleInputBlur}
-        />
-        <input
-          type="number"
-          name="id_izvjestaj"
-          placeholder="ID Izvještaj"
-          value={formData.id_izvjestaj}
-          onChange={handleChange}
-          style={inputStyle}
-          onFocus={handleInputFocus}
-          onBlur={handleInputBlur}
-        />
-        <input
-          type="number"
-          name="id_automobili"
-          placeholder="ID Automobili"
-          value={formData.id_automobili}
-          onChange={handleChange}
-          style={inputStyle}
-          onFocus={handleInputFocus}
-          onBlur={handleInputBlur}
-        />
-        <input
-          type="number"
-          name="id_salon"
-          placeholder="ID Salon"
-          value={formData.id_salon}
-          onChange={handleChange}
-          style={inputStyle}
-          onFocus={handleInputFocus}
-          onBlur={handleInputBlur}
-        />
-        <input
-          type="number"
-          name="id_catering"
-          placeholder="ID Catering"
-          value={formData.id_catering}
-          onChange={handleChange}
-          style={inputStyle}
-          onFocus={handleInputFocus}
-          onBlur={handleInputBlur}
-        />
+
+            {/* Select for Glazba */}
+        <select name="idDg" value={formData.idDg} onChange={handleChange} style={selectStyle} required>
+          <option value="">Odaberite Glazbu</option>
+          {glazba.map((item) => (
+            <option key={item.idGlazba} value={item.idGlazba}>
+              {item.ime}
+            </option>
+          ))}
+        </select>
+
+        {/* Select for Cvjećara */}
+        <select name="idDc" value={formData.idDc} onChange={handleChange} style={selectStyle} required>
+          <option value="">Odaberite Cvjećaru</option>
+          {cvjecara.map((item) => (
+            <option key={item.idCvjecara} value={item.idCvjecara}>
+              {item.ime}
+            </option>
+          ))}
+        </select>
+
+        {/* Select for Slastičarna */}
+        <select name="idDs" value={formData.idDs} onChange={handleChange} style={selectStyle} required>
+          <option value="">Odaberite Slastičarnu</option>
+          {slasticarna.map((item) => (
+            <option key={item.idSlasticarna} value={item.idSlasticarna}>
+              {item.ime}
+            </option>
+          ))}
+        </select>
+
+        {/* Select for Ostalo */}
+        <select name="idOstalo" value={formData.idOstalo} onChange={handleChange} style={selectStyle} required>
+          <option value="">Odaberite Ostalo</option>
+          {ostalo.map((item) => (
+            <option key={item.idOstalo} value={item.idOstalo}>
+              {item.ime}
+            </option>
+          ))}
+        </select>
+
+        {/* Select for Automobili */}
+        <select name="idAutomobili" value={formData.idAutomobili} onChange={handleChange} style={selectStyle} required>
+          <option value="">Odaberite Automobile</option>
+          {automobili.map((item) => (
+            <option key={item.idAutomobili} value={item.idAutomobili}>
+              {item.marka} {item.model}
+            </option>
+          ))}
+        </select>
+
+        {/* Select for Salon */}
+        <select name="idSalon" value={formData.idSalon} onChange={handleChange} style={selectStyle} required>
+          <option value="">Odaberite Salon</option>
+          {salon.map((item) => (
+            <option key={item.idSalon} value={item.idSalon}>
+              {item.ime}
+            </option>
+          ))}
+        </select>
+
+
         <button
           type="submit"
           style={buttonStyle}
-          onMouseOver={(e) => (e.target.style.backgroundColor = buttonHoverStyle.backgroundColor)}
-          onMouseOut={(e) => (e.target.style.backgroundColor = "#4caf50")}
+          onMouseOver={(e) =>
+            (e.target.style.backgroundColor = buttonHoverStyle.backgroundColor)
+          }
+          onMouseOut={(e) =>
+            (e.target.style.backgroundColor = "#4caf50")
+          }
         >
           Pošalji
         </button>
