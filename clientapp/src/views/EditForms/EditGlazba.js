@@ -25,7 +25,7 @@ const Glazba = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    // Basic validation before submission
+    
     if (formData.provizija <= 0 || formData.cijena <= 0) {
       setMessage("Provizija i cijena moraju biti veći od 0.");
       return;

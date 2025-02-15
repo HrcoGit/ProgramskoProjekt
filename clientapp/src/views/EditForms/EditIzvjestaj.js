@@ -22,7 +22,7 @@ const Izvjestaj = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    // Validate required fields before submission
+   
     if (formData.tipIzvjestaja.trim() === "" || formData.podatci.trim() === "") {
       setMessage("Sva polja su obavezna.");
       return;

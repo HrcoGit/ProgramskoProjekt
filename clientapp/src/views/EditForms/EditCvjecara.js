@@ -1,10 +1,10 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
-import { useParams, useHistory } from "react-router-dom"; // Za rad sa URL parametrima i navigaciju
+import { useParams, useHistory } from "react-router-dom"; 
 
 const EditCvjecara = () => {
-  const { id } = useParams(); // Dohvati ID iz URL-a
-  const history = useHistory(); // Za navigaciju nakon uspješnog ažuriranja
+  const { id } = useParams(); 
+  const history = useHistory(); 
   const [formData, setFormData] = useState({
     ime: "",
     adresa: "",
@@ -15,12 +15,12 @@ const EditCvjecara = () => {
   });
   const [message, setMessage] = useState("");
 
-  // Dohvati postojeće podatke
+  
   useEffect(() => {
     const fetchData = async () => {
       try {
         const response = await axios.get(`http://localhost:5269/api/cvjecara/${id}`);
-        setFormData(response.data); // Popuni formu s postojećim podacima
+        setFormData(response.data); 
       } catch (error) {
         console.error("Error fetching data:", error);
         setMessage("Greška prilikom dohvaćanja podataka.");
@@ -44,7 +44,7 @@ const EditCvjecara = () => {
       const response = await axios.put(`http://localhost:5269/api/cvjecara/${id}`, formData);
       if (response.status === 200 || response.status === 201) {
         setMessage("Podatci uspješno ažurirani!");
-        history.push("/cvjecara"); // Navigiraj na listu cvjećara nakon uspješnog ažuriranja
+        history.push("/cvjecara"); 
       }
     } catch (error) {
       setMessage("Greška prilikom ažuriranja podataka.");

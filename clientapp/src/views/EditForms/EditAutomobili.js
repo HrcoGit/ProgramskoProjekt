@@ -3,7 +3,7 @@ import axios from 'axios';
 import { useParams, useHistory } from 'react-router-dom';
 
 const EditAutomobil = () => {
-  const { id } = useParams(); // Id automobila iz URL-a
+  const { id } = useParams(); 
   const history = useHistory();
 
   const [formData, setFormData] = useState({
@@ -47,7 +47,6 @@ const EditAutomobil = () => {
       const response = await axios.put(`http://localhost:5269/api/automobili/${id}`, formData);
       if (response.status === 200) {
         setMessage("Podaci uspješno ažurirani!");
-        // Redirect to automobili page after successful update
         history.push('/automobili');
       }
     } catch (error) {

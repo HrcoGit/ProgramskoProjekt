@@ -3,7 +3,7 @@ import axios from 'axios';
 import { useParams, useHistory } from 'react-router-dom';
 
 const EditJelo = () => {
-  const { id } = useParams(); // ID jela iz URL-a
+  const { id } = useParams(); 
   const history = useHistory();
 
   const [formData, setFormData] = useState({
@@ -45,7 +45,6 @@ const EditJelo = () => {
       const response = await axios.put(`http://localhost:5269/api/jelo/${id}`, formData);
       if (response.status === 200) {
         setMessage("Podaci uspješno ažurirani!");
-        // Redirect to jela page after successful update
         history.push('/jela');
       }
     } catch (error) {

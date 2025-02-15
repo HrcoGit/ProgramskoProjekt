@@ -60,7 +60,7 @@ const Jelo = () => {
     display: "flex",
     flexDirection: "column",
     gap: "15px",
-    alignItems: "center", // Centriranje formi
+    alignItems: "center", 
   };
 
   const inputStyle = {
@@ -70,7 +70,7 @@ const Jelo = () => {
     borderRadius: "5px",
     outline: "none",
     transition: "border 0.3s",
-    width: "100%", // Dodano da bude jednako širine
+    width: "100%", 
   };
 
   const textareaStyle = {
@@ -81,7 +81,7 @@ const Jelo = () => {
     outline: "none",
     transition: "border 0.3s",
     resize: "vertical",
-    width: "100%", // Dodano da bude jednako širine
+    width: "100%", 
   };
 
   const buttonStyle = {
@@ -93,7 +93,7 @@ const Jelo = () => {
     borderRadius: "5px",
     cursor: "pointer",
     transition: "background-color 0.3s",
-    width: "100%", // I dugme ima istu širinu
+    width: "100%", 
   };
 
   const buttonHoverStyle = {

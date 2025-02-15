@@ -3,7 +3,7 @@ import axios from "axios";
 import { useParams, useHistory } from "react-router-dom";
 
 const EditSalon = () => {
-  const { id } = useParams(); // Get id from URL
+  const { id } = useParams(); 
   const history = useHistory();
 
   const [formData, setFormData] = useState({
@@ -51,7 +51,7 @@ const EditSalon = () => {
       const response = await axios.put(`http://localhost:5269/api/salon/${id}`, formData);
       if (response.status === 200 || response.status === 201) {
         setMessage("Podatci uspješno ažurirani!");
-        history.push("/salon"); // Redirect to salon list
+        history.push("/salon"); 
       }
     } catch (error) {
       setMessage("Greška prilikom ažuriranja podataka.");

@@ -1,10 +1,10 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
-import { useParams, useHistory } from "react-router-dom"; // Za rad sa URL parametrima i navigaciju
+import { useParams, useHistory } from "react-router-dom"; 
 
 const EditDogadjaj = () => {
-  const { id } = useParams(); // Dohvati ID iz URL-a
-  const history = useHistory(); // Za navigaciju nakon uspješnog ažuriranja
+  const { id } = useParams(); 
+  const history = useHistory(); 
   const [formData, setFormData] = useState({
     id_dogadjaj: "",
     datum: "",
@@ -22,12 +22,12 @@ const EditDogadjaj = () => {
 
   const [message, setMessage] = useState("");
 
-  // Dohvati postojeće podatke za događaj
+  
   useEffect(() => {
     const fetchData = async () => {
       try {
         const response = await axios.get(`http://localhost:5269/api/dogadjaji/${id}`);
-        setFormData(response.data); // Popuni formu s postojećim podacima
+        setFormData(response.data); 
       } catch (error) {
         console.error("Error fetching data:", error);
         setMessage("Greška prilikom dohvaćanja podataka.");
@@ -51,7 +51,7 @@ const EditDogadjaj = () => {
       const response = await axios.put(`http://localhost:5269/api/dogadjaji/${id}`, formData);
       if (response.status === 200 || response.status === 201) {
         setMessage("Podatci uspješno ažurirani!");
-        history.push("/dogadjaji"); // Navigiraj na listu događaja nakon uspješnog ažuriranja
+        history.push("/dogadjaji"); 
       }
     } catch (error) {
       setMessage("Greška prilikom ažuriranja podataka.");
