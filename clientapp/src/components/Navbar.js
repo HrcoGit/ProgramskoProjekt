@@ -117,7 +117,7 @@ const styles = {
     position: "relative",
   },
   addNew: {
-    backgroundColor: "#50C878",
+    backgroundColor: "#28a745",
     color: "#fff",
     fontSize: "24px",
     border: "none",

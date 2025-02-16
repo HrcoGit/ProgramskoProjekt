@@ -125,6 +125,7 @@ export const Home = () => {
       }
     }
   };
+
   const styles = {
     sectionContainer: {
       width: "100%",
@@ -181,7 +182,7 @@ export const Home = () => {
       marginBottom: "20px",
     },
     editButton: {
-      backgroundColor: "#007bff",
+      backgroundColor: "#28a745",
       color: "#fff",
       padding: "8px 12px",
       border: "none",
@@ -199,6 +200,19 @@ export const Home = () => {
       background: "transparent",
       border: "none",
       cursor: "pointer",
+    },
+    exportButton: {
+      position: "fixed",
+      bottom: "20px",
+      left: "50%",
+      transform: "translateX(-50%)",
+      padding: "10px 20px",
+      backgroundColor: "#28a745",
+      color: "#fff",
+      border: "none",
+      fontSize: "16px",
+      cursor: "pointer",
+      borderRadius: "5px",
     },
   };
 
@@ -276,6 +290,9 @@ export const Home = () => {
       {renderSection("Restoran Jelo", "restoranJelo")}
       {renderSection("Salon", "salon")}
       {renderSection("Slastičarna", "slasticarna")}
+      <button style={styles.exportButton}>
+        Export
+      </button>
     </div>
   );
 };
