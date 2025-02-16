@@ -1,5 +1,7 @@
 import React, { useState } from "react";
 import axios from "axios";
+import { toast } from "react-toastify";
+import { useNavigate } from "react-router-dom";
 
 const Cvjecara = () => {
   const [formData, setFormData] = useState({
@@ -11,7 +13,7 @@ const Cvjecara = () => {
     cijena: "",
   });
 
-  const [message, setMessage] = useState("");
+  const navigate = useNavigate();
 
   const handleChange = (e) => {
     setFormData({
@@ -28,19 +30,13 @@ const Cvjecara = () => {
         "http://localhost:5269/api/cvjecara",
         formData,
       );
+
       if (response.status === 200 || response.status === 201) {
-        setMessage("Podatci uspješno poslani!");
-        setFormData({
-          ime: "",
-          adresa: "",
-          telefon: "",
-          email: "",
-          provizija: "",
-          cijena: "",
-        });
+        toast.success("Cvjećara uspješno dodana!");
+        navigate("/"); // Redirect to home or another relevant page
       }
     } catch (error) {
-      setMessage("Greška prilikom slanja podataka.");
+      toast.error("Greška prilikom dodavanja cvjećare.");
       console.error("Error:", error);
     }
   };
@@ -76,10 +72,6 @@ const Cvjecara = () => {
     transition: "border 0.3s",
   };
 
-  const inputFocusStyle = {
-    borderColor: "#4caf50",
-  };
-
   const buttonStyle = {
     padding: "12px",
     backgroundColor: "#4caf50",
@@ -93,13 +85,6 @@ const Cvjecara = () => {
 
   const buttonHoverStyle = {
     backgroundColor: "#45a049",
-  };
-
-  const messageStyle = {
-    marginTop: "20px",
-    fontSize: "18px",
-    color: "#333",
-    fontWeight: "bold",
   };
 
   const handleInputFocus = (e) => {
@@ -193,7 +178,6 @@ const Cvjecara = () => {
           Pošalji
         </button>
       </form>
-      {message && <p style={messageStyle}>{message}</p>}
     </div>
   );
 };

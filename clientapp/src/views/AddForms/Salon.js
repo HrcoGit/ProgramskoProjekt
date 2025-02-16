@@ -1,5 +1,7 @@
 import React, { useState } from "react";
 import axios from "axios";
+import { toast } from "react-toastify";
+import { useNavigate } from "react-router-dom";
 
 const Salon = () => {
   const [formData, setFormData] = useState({
@@ -15,7 +17,7 @@ const Salon = () => {
     idDogadjaj: null,
   });
 
-  const [message, setMessage] = useState("");
+  const navigate = useNavigate();
 
   const handleChange = (e) => {
     setFormData({
@@ -33,7 +35,7 @@ const Salon = () => {
         formData,
       );
       if (response.status === 200 || response.status === 201) {
-        setMessage("Podatci uspješno poslani!");
+        toast.success("Salon uspješno dodan!");
         setFormData({
           ime: "",
           adresa: "",
@@ -46,9 +48,10 @@ const Salon = () => {
           krajAngazmana: "",
           idDogadjaj: null,
         });
+        navigate("/");
       }
     } catch (error) {
-      setMessage("Greška prilikom slanja podataka.");
+      toast.error("Greška prilikom dodavanja salona.");
       console.error("Error:", error);
     }
   };
@@ -100,13 +103,6 @@ const Salon = () => {
 
   const buttonHoverStyle = {
     backgroundColor: "#45a049",
-  };
-
-  const messageStyle = {
-    marginTop: "20px",
-    fontSize: "18px",
-    color: "#333",
-    fontWeight: "bold",
   };
 
   const handleInputFocus = (e) => {
@@ -231,7 +227,6 @@ const Salon = () => {
           Pošalji
         </button>
       </form>
-      {message && <p style={messageStyle}>{message}</p>}
     </div>
   );
 };

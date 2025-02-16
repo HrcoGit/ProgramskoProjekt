@@ -1,11 +1,13 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
 import { useParams } from "react-router-dom";
+import { toast } from "react-toastify";
+import { useNavigate } from "react-router-dom";
 
 const EditCvjecara = () => {
   const { id } = useParams();
   const [formData, setFormData] = useState({
-    idCvjecara: "", // ✅ Include ID for API compatibility
+    idCvjecara: "",
     ime: "",
     adresa: "",
     telefon: "",
@@ -14,7 +16,7 @@ const EditCvjecara = () => {
     cijena: "",
   });
 
-  const [message, setMessage] = useState("");
+  const navigate = useNavigate();
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
@@ -26,7 +28,6 @@ const EditCvjecara = () => {
         setFormData(response.data);
       } catch (error) {
         console.error("Error fetching data:", error);
-        setMessage("Greška prilikom dohvaćanja podataka.");
       } finally {
         setLoading(false);
       }
@@ -63,11 +64,16 @@ const EditCvjecara = () => {
         `http://localhost:5269/api/cvjecara/${id}`,
         payload,
       );
-      if (response.status === 200 || response.status === 201) {
-        setMessage("Podaci uspješno ažurirani!");
+      if (
+        response.status === 200 ||
+        response.status === 201 ||
+        response.status === 204
+      ) {
+        toast.success("Cvjećara uspješno ažurirana!");
+        navigate("/");
       }
     } catch (error) {
-      setMessage("Greška prilikom ažuriranja podataka.");
+      toast.error("Greška prilikom ažuriranja cvjećare.");
       console.error("Error:", error);
     }
   };
@@ -140,7 +146,6 @@ const EditCvjecara = () => {
           Ažuriraj
         </button>
       </form>
-      {message && <p style={styles.message}>{message}</p>}
     </div>
   );
 };
@@ -184,11 +189,5 @@ const styles = {
     borderRadius: "5px",
     cursor: "pointer",
     transition: "background-color 0.3s",
-  },
-  message: {
-    marginTop: "20px",
-    fontSize: "18px",
-    color: "#333",
-    fontWeight: "bold",
   },
 };

@@ -1,5 +1,7 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
+import { toast } from "react-toastify";
+import { useNavigate } from "react-router-dom";
 
 const Dogadjaj = ({ vrsta }) => {
   const [formData, setFormData] = useState({
@@ -15,8 +17,6 @@ const Dogadjaj = ({ vrsta }) => {
     idSalon: "",
   });
 
-  const [message, setMessage] = useState("");
-
   const [glazba, setGlazba] = useState([]);
   const [cvjecara, setCvjecara] = useState([]);
   const [slasticarna, setSlasticarna] = useState([]);
@@ -24,12 +24,12 @@ const Dogadjaj = ({ vrsta }) => {
   const [automobili, setAutomobili] = useState([]);
   const [salon, setSalon] = useState([]);
 
-  // Update tip_dogadjaja when vrsta prop changes
+  const navigate = useNavigate();
+
   useEffect(() => {
     setFormData((prev) => ({ ...prev, tipDogadjaja: vrsta }));
   }, [vrsta]);
 
-  // Fetch options for each select
   useEffect(() => {
     const fetchGlazba = async () => {
       try {
@@ -97,7 +97,6 @@ const Dogadjaj = ({ vrsta }) => {
     fetchSalon();
   }, []);
 
-  // Handle change with numeric conversion for fields starting with "id_"
   const handleChange = (e) => {
     const { name, value } = e.target;
     setFormData((prev) => ({
@@ -110,7 +109,7 @@ const Dogadjaj = ({ vrsta }) => {
     e.preventDefault();
 
     if (!formData.datum || !formData.kontakt) {
-      setMessage("Molimo popunite sva obavezna polja.");
+      toast.error("Greška prilikom dodavanja događaja.");
       return;
     }
 
@@ -137,7 +136,7 @@ const Dogadjaj = ({ vrsta }) => {
         payload,
       );
       if (response.status === 200 || response.status === 201) {
-        setMessage("Podatci uspješno poslani!");
+        toast.success("Događaj uspješno poslani!");
         setFormData({
           datum: "",
           kontakt: "",
@@ -150,14 +149,14 @@ const Dogadjaj = ({ vrsta }) => {
           idAutomobili: "",
           id_salon: "",
         });
+        navigate("/");
       }
     } catch (error) {
-      setMessage("Greška prilikom slanja podataka.");
+      toast.error("Greška prilikom dodavanja događaja.");
       console.error("Error:", error);
     }
   };
 
-  // Styles
   const containerStyle = {
     width: "100%",
     maxWidth: "450px",
@@ -192,7 +191,6 @@ const Dogadjaj = ({ vrsta }) => {
     boxSizing: "border-box",
   };
 
-  // Set selectStyle to have readable text and background
   const selectStyle = { ...inputStyle, color: "#333", backgroundColor: "#fff" };
 
   const buttonStyle = {
@@ -209,14 +207,6 @@ const Dogadjaj = ({ vrsta }) => {
 
   const buttonHoverStyle = {
     backgroundColor: "#45a049",
-  };
-
-  const messageStyle = {
-    marginTop: "20px",
-    fontSize: "18px",
-    color: "#333",
-    fontWeight: "bold",
-    textAlign: "center",
   };
 
   const handleInputFocus = (e) => {
@@ -360,7 +350,6 @@ const Dogadjaj = ({ vrsta }) => {
           Pošalji
         </button>
       </form>
-      {message && <p style={messageStyle}>{message}</p>}
     </div>
   );
 };

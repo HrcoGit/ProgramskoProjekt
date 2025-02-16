@@ -1,6 +1,8 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
 import { useParams } from "react-router-dom";
+import { toast } from "react-toastify";
+import { useNavigate } from "react-router-dom";
 
 const EditMeni = () => {
   const { id } = useParams();
@@ -8,15 +10,15 @@ const EditMeni = () => {
   const [formData, setFormData] = useState({
     idRj: "",
     idRestoran: "",
-    selectedJela: [], // List of selected dishes
+    selectedJela: [],
   });
 
   const [restorani, setRestorani] = useState([]);
   const [jela, setJela] = useState([]);
-  const [message, setMessage] = useState("");
   const [loading, setLoading] = useState(true);
 
-  // Fetch initial data
+  const navigate = useNavigate();
+
   useEffect(() => {
     const fetchData = async () => {
       try {
@@ -40,7 +42,6 @@ const EditMeni = () => {
         });
       } catch (error) {
         console.error("Error fetching data:", error);
-        setMessage("Greška prilikom dohvaćanja podataka.");
       } finally {
         setLoading(false);
       }
@@ -78,15 +79,11 @@ const EditMeni = () => {
     e.preventDefault();
 
     if (!formData.idRestoran || formData.selectedJela.length === 0) {
-      setMessage("Odaberite restoran i barem jedno jelo.");
+      toast.error("Molimo odaberi restoran i jelo.");
       return;
     }
 
     try {
-      // Clear previous dish associations
-      await axios.delete(`http://localhost:5269/api/restoranJelo/${id}`);
-
-      // Submit updated data
       await Promise.all(
         formData.selectedJela.map(async (idJelo) => {
           const payload = {
@@ -99,10 +96,14 @@ const EditMeni = () => {
         }),
       );
 
-      setMessage("Podatci uspješno ažurirani!");
+      toast.success("Meni uspješno ažuriran!");
+      navigate("/");
     } catch (error) {
-      setMessage("Greška prilikom ažuriranja podataka.");
+      toast.error("Greška prilikom ažuriranja menija.");
       console.error("Error:", error);
+    } finally {
+      toast.success("Meni uspješno ažuriran!");
+      navigate("/");
     }
   };
 
@@ -177,7 +178,6 @@ const EditMeni = () => {
           Ažuriraj
         </button>
       </form>
-      {message && <p style={styles.message}>{message}</p>}
     </div>
   );
 };
@@ -235,11 +235,5 @@ const styles = {
     cursor: "pointer",
     padding: "5px 10px",
     borderRadius: "5px",
-  },
-  message: {
-    marginTop: "20px",
-    fontSize: "18px",
-    color: "#333",
-    fontWeight: "bold",
   },
 };

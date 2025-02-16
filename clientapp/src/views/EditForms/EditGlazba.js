@@ -1,6 +1,8 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
 import { useParams } from "react-router-dom";
+import { toast } from "react-toastify";
+import { useNavigate } from "react-router-dom";
 
 const EditGlazba = () => {
   const { id } = useParams();
@@ -17,7 +19,7 @@ const EditGlazba = () => {
     idDogadjajGlazba: null,
   });
 
-  const [message, setMessage] = useState("");
+  const navigate = useNavigate();
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
@@ -29,7 +31,6 @@ const EditGlazba = () => {
         setFormData(response.data);
       } catch (error) {
         console.error("Error fetching glazba data:", error);
-        setMessage("Greška prilikom dohvaćanja podataka.");
       } finally {
         setLoading(false);
       }
@@ -49,7 +50,7 @@ const EditGlazba = () => {
     e.preventDefault();
 
     if (formData.provizija <= 0 || formData.cijena <= 0) {
-      setMessage("Provizija i cijena moraju biti veći od 0.");
+      toast.error("Provizija i cijena moraju biti veći od 0.");
       return;
     }
 
@@ -70,11 +71,12 @@ const EditGlazba = () => {
         `http://localhost:5269/api/glazba/${id}`,
         payload,
       );
-      if (response.status === 200) {
-        setMessage("Podaci uspješno ažurirani!");
+      if (response.status === 200 || response.status === 204) {
+        toast.success("Glazba uspješno ažurirana!");
+        navigate("/");
       }
     } catch (error) {
-      setMessage("Greška prilikom ažuriranja podataka.");
+      toast.error("Greška prilikom ažuriranja glazbe.");
       console.error("Error:", error);
     }
   };
@@ -154,7 +156,6 @@ const EditGlazba = () => {
           Ažuriraj
         </button>
       </form>
-      {message && <p style={styles.message}>{message}</p>}
     </div>
   );
 };
@@ -198,11 +199,5 @@ const styles = {
     borderRadius: "5px",
     cursor: "pointer",
     transition: "background-color 0.3s",
-  },
-  message: {
-    marginTop: "20px",
-    fontSize: "18px",
-    color: "#333",
-    fontWeight: "bold",
   },
 };

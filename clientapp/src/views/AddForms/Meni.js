@@ -1,17 +1,19 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
+import { toast } from "react-toastify";
+import { useNavigate } from "react-router-dom";
 
 const Meni = () => {
   const [formData, setFormData] = useState({
     idRestoran: "",
-    selectedJela: [], // List of selected meals
+    selectedJela: [],
   });
+
+  const navigate = useNavigate();
 
   const [restorani, setRestorani] = useState([]);
   const [jela, setJela] = useState([]);
-  const [message, setMessage] = useState("");
 
-  // Fetch available restorani and jela from the API
   useEffect(() => {
     const fetchRestorani = async () => {
       try {
@@ -64,7 +66,7 @@ const Meni = () => {
     e.preventDefault();
 
     if (!formData.idRestoran || formData.selectedJela.length === 0) {
-      setMessage("Odaberite restoran i barem jedno jelo.");
+      toast.error("Molimo odaberi restoran i jelo.");
       return;
     }
 
@@ -81,10 +83,11 @@ const Meni = () => {
         }),
       );
 
-      setMessage("Podatci uspješno poslani!");
+      toast.success("Meni uspješno dodan!");
       setFormData({ idRestoran: "", selectedJela: [] });
+      navigate("/");
     } catch (error) {
-      setMessage("Greška prilikom slanja podataka.");
+      toast.error("Greška prilikom dodavanja menija.");
       console.error("Error:", error);
     }
   };
@@ -156,7 +159,6 @@ const Meni = () => {
           Pošalji
         </button>
       </form>
-      {message && <p style={styles.message}>{message}</p>}
     </div>
   );
 };
@@ -211,12 +213,6 @@ const styles = {
     cursor: "pointer",
     padding: "5px 10px",
     borderRadius: "5px",
-  },
-  message: {
-    marginTop: "20px",
-    fontSize: "18px",
-    color: "#333",
-    fontWeight: "bold",
   },
 };
 

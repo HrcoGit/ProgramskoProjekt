@@ -1,6 +1,8 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
 import { useParams } from "react-router-dom";
+import { toast } from "react-toastify";
+import { useNavigate } from "react-router-dom";
 
 const EditDogadjaj = () => {
   const { id } = useParams();
@@ -14,16 +16,16 @@ const EditDogadjaj = () => {
     idDc: "",
     idDs: "",
     idOstalo: "",
-    idIzvjestaj: null, // ✅ Keep these fields null
+    idIzvjestaj: null,
     idAutomobili: "",
     idSalon: "",
-    idCatering: null, // ✅ Keep these fields null
+    idCatering: null,
   });
 
-  const [message, setMessage] = useState("");
   const [loading, setLoading] = useState(true);
 
-  // State for select options
+  const navigate = useNavigate();
+
   const [glazba, setGlazba] = useState([]);
   const [cvjecara, setCvjecara] = useState([]);
   const [slasticarna, setSlasticarna] = useState([]);
@@ -40,7 +42,6 @@ const EditDogadjaj = () => {
         setFormData(response.data);
       } catch (error) {
         console.error("Error fetching data:", error);
-        setMessage("Greška prilikom dohvaćanja podataka.");
       } finally {
         setLoading(false);
       }
@@ -115,11 +116,16 @@ const EditDogadjaj = () => {
         `http://localhost:5269/api/dogadjaj/${id}`,
         payload,
       );
-      if (response.status === 200 || response.status === 201) {
-        setMessage("Podaci uspješno ažurirani!");
+      if (
+        response.status === 200 ||
+        response.status === 201 ||
+        response.status === 204
+      ) {
+        toast.success("Događaj uspješno ažuriran!");
+        navigate("/");
       }
     } catch (error) {
-      setMessage("Greška prilikom ažuriranja podataka.");
+      toast.error("Greška prilikom ažuriranja događaja.");
       console.error("Error:", error);
     }
   };
@@ -250,7 +256,6 @@ const EditDogadjaj = () => {
           Ažuriraj
         </button>
       </form>
-      {message && <p style={styles.message}>{message}</p>}
     </div>
   );
 };
@@ -287,11 +292,5 @@ const styles = {
     border: "none",
     borderRadius: "5px",
     cursor: "pointer",
-  },
-  message: {
-    marginTop: "20px",
-    fontSize: "18px",
-    color: "#333",
-    fontWeight: "bold",
   },
 };

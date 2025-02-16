@@ -1,5 +1,7 @@
 import React, { useState } from "react";
 import axios from "axios";
+import { toast } from "react-toastify";
+import { useNavigate } from "react-router-dom";
 
 const Glazba = () => {
   const [formData, setFormData] = useState({
@@ -13,7 +15,7 @@ const Glazba = () => {
     id_dogadjaj_glazba: null,
   });
 
-  const [message, setMessage] = useState("");
+  const navigate = useNavigate();
 
   const handleChange = (e) => {
     setFormData({
@@ -31,7 +33,7 @@ const Glazba = () => {
         formData,
       );
       if (response.status === 200 || response.status === 201) {
-        setMessage("Podatci uspješno poslani!");
+        toast.success("Glazba uspješno dodana!");
         setFormData({
           ime: "",
           telefon: "",
@@ -42,9 +44,10 @@ const Glazba = () => {
           kraj_angazmana: "2025-02-12",
           id_dogadjaj_glazba: null,
         });
+        navigate("/");
       }
     } catch (error) {
-      setMessage("Greška prilikom slanja podataka.");
+      toast.error("Greška prilikom dodavanja glazbe.");
       console.error("Error:", error);
     }
   };
@@ -97,13 +100,6 @@ const Glazba = () => {
 
   const buttonHoverStyle = {
     backgroundColor: "#45a049",
-  };
-
-  const messageStyle = {
-    marginTop: "20px",
-    fontSize: "18px",
-    color: "#333",
-    fontWeight: "bold",
   };
 
   const handleInputFocus = (e) => {
@@ -206,7 +202,6 @@ const Glazba = () => {
           Pošalji
         </button>
       </form>
-      {message && <p style={messageStyle}>{message}</p>}
     </div>
   );
 };

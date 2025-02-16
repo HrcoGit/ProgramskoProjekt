@@ -1,8 +1,10 @@
 import React, { useState } from "react";
 import { LiaRingSolid } from "react-icons/lia";
+import { useNavigate } from "react-router-dom";
 
 const Navbar = () => {
   const [dropdownOpen, setDropdownOpen] = useState(false);
+  const navigate = useNavigate();
 
   const toggleDropdown = () => {
     setDropdownOpen(!dropdownOpen);
@@ -16,24 +18,24 @@ const Navbar = () => {
         </div>
         <ul style={styles.navList}>
           <li style={styles.navItem}>
-            <a href="/" style={styles.navLink}>
+            <span style={styles.navLink} onClick={() => navigate("/")}>
               Svatovi
-            </a>
+            </span>
           </li>
           <li style={styles.navItem}>
-            <a href="/" style={styles.navLink}>
+            <span style={styles.navLink} onClick={() => navigate("/")}>
               Krštenja
-            </a>
+            </span>
           </li>
           <li style={styles.navItem}>
-            <a href="/" style={styles.navLink}>
+            <span style={styles.navLink} onClick={() => navigate("/")}>
               Pričesti
-            </a>
+            </span>
           </li>
           <li style={styles.navItem}>
-            <a href="/" style={styles.navLink}>
+            <span style={styles.navLink} onClick={() => navigate("/")}>
               Krizme
-            </a>
+            </span>
           </li>
         </ul>
       </div>
@@ -46,7 +48,6 @@ const Navbar = () => {
           <div style={styles.dropdownMenu}>
             <ul style={styles.dropdownList}>
               {[
-                // "Dodaj Događaj",  imam drugu ideju za ovo
                 "Dodaj Cvjećarnu",
                 "Dodaj Automobil",
                 "Dodaj Glazbu",
@@ -58,13 +59,14 @@ const Navbar = () => {
                 "Dodaj Salon",
                 "Dodaj Ostalo",
               ].map((item, index) => (
-                <li key={index} style={styles.dropdownItem}>
-                  <a
-                    href={`${item.toLowerCase().replace(/\s+/g, "-")}`}
-                    style={styles.link}
-                  >
-                    {item}
-                  </a>
+                <li
+                  key={index}
+                  style={styles.dropdownItem}
+                  onClick={() =>
+                    navigate(`/${item.toLowerCase().replace(/\s+/g, "-")}`)
+                  }
+                >
+                  {item}
                 </li>
               ))}
             </ul>
@@ -84,12 +86,6 @@ const styles = {
     padding: "10px 20px",
     color: "#fff",
     position: "relative",
-  },
-  link: {
-    textDecoration: "none",
-    color: "inherit",
-    fontSize: "16px",
-    display: "block",
   },
   logo: {
     display: "flex",
@@ -112,6 +108,7 @@ const styles = {
     textDecoration: "none",
     color: "#fff",
     fontSize: "20px",
+    cursor: "pointer",
   },
   dropdownContainer: {
     position: "relative",
@@ -152,9 +149,6 @@ const styles = {
     color: "#543A14",
     borderBottom: "1px solid #ddd",
     transition: "background 0.2s",
-  },
-  dropdownItemLast: {
-    borderBottom: "none",
   },
 };
 

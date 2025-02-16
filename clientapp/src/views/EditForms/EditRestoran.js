@@ -1,6 +1,8 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
 import { useParams } from "react-router-dom";
+import { toast } from "react-toastify";
+import { useNavigate } from "react-router-dom";
 
 const EditRestoran = () => {
   const { id } = useParams();
@@ -14,7 +16,8 @@ const EditRestoran = () => {
     mjesto: "",
   });
 
-  const [message, setMessage] = useState("");
+  const navigate = useNavigate();
+
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
@@ -26,7 +29,6 @@ const EditRestoran = () => {
         setFormData(response.data);
       } catch (error) {
         console.error("Error fetching restoran data:", error);
-        setMessage("Greška prilikom dohvaćanja podataka.");
       } finally {
         setLoading(false);
       }
@@ -59,11 +61,12 @@ const EditRestoran = () => {
         `http://localhost:5269/api/restoran/${id}`,
         payload,
       );
-      if (response.status === 200) {
-        setMessage("Podaci uspješno ažurirani!");
+      if (response.status === 200 || response.status === 204) {
+        toast.success("Restoran uspješno ažuriran!");
+        navigate("/");
       }
     } catch (error) {
-      setMessage("Greška prilikom ažuriranja podataka.");
+      toast.error("Greška prilikom ažuriranja restorana.");
       console.error("Error:", error);
     }
   };
@@ -125,7 +128,6 @@ const EditRestoran = () => {
           Ažuriraj
         </button>
       </form>
-      {message && <p style={styles.message}>{message}</p>}
     </div>
   );
 };
@@ -169,11 +171,5 @@ const styles = {
     borderRadius: "5px",
     cursor: "pointer",
     transition: "background-color 0.3s",
-  },
-  message: {
-    marginTop: "20px",
-    fontSize: "18px",
-    color: "#333",
-    fontWeight: "bold",
   },
 };

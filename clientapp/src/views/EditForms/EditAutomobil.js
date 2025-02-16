@@ -1,9 +1,11 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
 import { useParams } from "react-router-dom";
+import { toast } from "react-toastify";
+import { useNavigate } from "react-router-dom";
 
 const EditAutomobil = () => {
-  const { id } = useParams(); // Get ID from URL parameters
+  const { id } = useParams();
 
   const [formData, setFormData] = useState({
     idAutomobili: "",
@@ -16,7 +18,7 @@ const EditAutomobil = () => {
     idDogadjaj: null,
   });
 
-  const [message, setMessage] = useState("");
+  const navigate = useNavigate();
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
@@ -28,7 +30,6 @@ const EditAutomobil = () => {
         setFormData(response.data);
       } catch (error) {
         console.error("Error fetching car data:", error);
-        setMessage("Greška prilikom dohvaćanja podataka.");
       } finally {
         setLoading(false);
       }
@@ -69,11 +70,12 @@ const EditAutomobil = () => {
         payload,
       );
 
-      if (response.status === 200) {
-        setMessage("Podaci uspješno ažurirani!");
+      if (response.status === 200 || response.status === 204) {
+        toast.success("Automobil uspješno ažuriran!");
+        navigate("/");
       }
     } catch (error) {
-      setMessage("Greška prilikom ažuriranja podataka.");
+      toast.error("Greška prilikom ažuriranja automobila.");
       console.error("Error:", error);
     }
   };
@@ -164,7 +166,6 @@ const EditAutomobil = () => {
           Ažuriraj Automobil
         </button>
       </form>
-      {message && <p style={styles.message}>{message}</p>}
     </div>
   );
 };
@@ -218,11 +219,5 @@ const styles = {
     borderRadius: "5px",
     cursor: "pointer",
     transition: "background-color 0.3s",
-  },
-  message: {
-    marginTop: "20px",
-    fontSize: "18px",
-    color: "#333",
-    fontWeight: "bold",
   },
 };

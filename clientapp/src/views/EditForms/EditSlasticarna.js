@@ -1,9 +1,11 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
 import { useParams } from "react-router-dom";
+import { toast } from "react-toastify";
+import { useNavigate } from "react-router-dom";
 
 const EditSlasticarna = () => {
-  const { id } = useParams(); // Get ID from URL parameters
+  const { id } = useParams();
 
   const [formData, setFormData] = useState({
     idSlasticarna: "",
@@ -15,10 +17,10 @@ const EditSlasticarna = () => {
     cijena: "",
   });
 
-  const [message, setMessage] = useState("");
+  const navigate = useNavigate();
+
   const [loading, setLoading] = useState(true);
 
-  // Fetch slastičarna data on component mount
   useEffect(() => {
     const fetchData = async () => {
       try {
@@ -28,7 +30,6 @@ const EditSlasticarna = () => {
         setFormData(response.data);
       } catch (error) {
         console.error("Error fetching data:", error);
-        setMessage("Greška prilikom dohvaćanja podataka.");
       } finally {
         setLoading(false);
       }
@@ -62,11 +63,16 @@ const EditSlasticarna = () => {
         `http://localhost:5269/api/slasticarna/${id}`,
         payload,
       );
-      if (response.status === 200 || response.status === 201) {
-        setMessage("Podatci uspješno ažurirani!");
+      if (
+        response.status === 200 ||
+        response.status === 201 ||
+        response.status === 204
+      ) {
+        toast.success("Slastičarna uspješno ažurirana!");
+        navigate("/");
       }
     } catch (error) {
-      setMessage("Greška prilikom ažuriranja podataka.");
+      toast.error("Greška prilikom ažuriranja slastičarne.");
       console.error("Error:", error);
     }
   };
@@ -139,14 +145,12 @@ const EditSlasticarna = () => {
           Ažuriraj
         </button>
       </form>
-      {message && <p style={messageStyle}>{message}</p>}
     </div>
   );
 };
 
 export default EditSlasticarna;
 
-// Styles
 const containerStyle = {
   maxWidth: "450px",
   margin: "50px auto",
@@ -187,11 +191,4 @@ const buttonStyle = {
   borderRadius: "5px",
   cursor: "pointer",
   transition: "background-color 0.3s",
-};
-
-const messageStyle = {
-  marginTop: "20px",
-  fontSize: "18px",
-  color: "#333",
-  fontWeight: "bold",
 };

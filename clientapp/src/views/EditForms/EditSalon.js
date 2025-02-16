@@ -1,9 +1,11 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
 import { useParams } from "react-router-dom";
+import { toast } from "react-toastify";
+import { useNavigate } from "react-router-dom";
 
 const EditSalon = () => {
-  const { id } = useParams(); // Get salon ID from URL parameters
+  const { id } = useParams();
 
   const [formData, setFormData] = useState({
     idSalon: "",
@@ -19,7 +21,8 @@ const EditSalon = () => {
     idDogadjaj: null,
   });
 
-  const [message, setMessage] = useState("");
+  const navigate = useNavigate();
+
   const [loading, setLoading] = useState(true);
 
   // Fetch salon data when component mounts
@@ -32,7 +35,6 @@ const EditSalon = () => {
         setFormData(response.data);
       } catch (error) {
         console.error("Error fetching data:", error);
-        setMessage("Greška prilikom dohvaćanja podataka.");
       } finally {
         setLoading(false);
       }
@@ -70,11 +72,16 @@ const EditSalon = () => {
         `http://localhost:5269/api/salon/${id}`,
         payload,
       );
-      if (response.status === 200 || response.status === 201) {
-        setMessage("Podatci uspješno ažurirani!");
+      if (
+        response.status === 200 ||
+        response.status === 201 ||
+        response.status === 204
+      ) {
+        toast.success("Salon uspješno ažuriran!");
+        navigate("/");
       }
     } catch (error) {
-      setMessage("Greška prilikom ažuriranja podataka.");
+      toast.error("Greška prilikom ažuriranja salona.");
       console.error("Error:", error);
     }
   };
@@ -170,7 +177,6 @@ const EditSalon = () => {
           Ažuriraj
         </button>
       </form>
-      {message && <p style={messageStyle}>{message}</p>}
     </div>
   );
 };
@@ -218,11 +224,4 @@ const buttonStyle = {
   borderRadius: "5px",
   cursor: "pointer",
   transition: "background-color 0.3s",
-};
-
-const messageStyle = {
-  marginTop: "20px",
-  fontSize: "18px",
-  color: "#333",
-  fontWeight: "bold",
 };

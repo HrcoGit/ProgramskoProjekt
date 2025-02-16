@@ -1,5 +1,7 @@
 import React, { useState } from "react";
 import axios from "axios";
+import { toast } from "react-toastify";
+import { useNavigate } from "react-router-dom";
 
 const Automobil = () => {
   const [formData, setFormData] = useState({
@@ -12,7 +14,7 @@ const Automobil = () => {
     idDogadjaj: null,
   });
 
-  const [message, setMessage] = useState("");
+  const navigate = useNavigate();
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -41,10 +43,11 @@ const Automobil = () => {
         "http://localhost:5269/api/automobili",
         payload,
       );
-      setMessage("Podatci uspješno poslani!");
+      toast.success("Automobil uspješno dodan!");
+      navigate("/");
     } catch (error) {
       console.error("Error:", error);
-      setMessage("Greška prilikom slanja podataka.");
+      toast.error("Greška prilikom dodavanja automobila.");
     }
   };
 
@@ -96,13 +99,6 @@ const Automobil = () => {
 
   const buttonHoverStyle = {
     backgroundColor: "#45a049",
-  };
-
-  const messageStyle = {
-    marginTop: "20px",
-    fontSize: "18px",
-    color: "#333",
-    fontWeight: "bold",
   };
 
   const handleInputFocus = (e) => {
@@ -192,7 +188,6 @@ const Automobil = () => {
           Submit
         </button>
       </form>
-      {message && <p style={messageStyle}>{message}</p>}
     </div>
   );
 };
