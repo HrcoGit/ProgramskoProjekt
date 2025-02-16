@@ -1,12 +1,8 @@
 import { useEffect, useState } from "react";
-import {
-  FaChevronRight,
-  FaChevronDown,
-  FaPencilAlt,
-  FaTimes,
-} from "react-icons/fa";
+import { FaChevronRight, FaChevronDown, FaPencilAlt, FaTimes } from "react-icons/fa";
 import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
+import * as XLSX from "xlsx";  // Import the xlsx library
 
 export const Home = () => {
   const [data, setData] = useState({
@@ -59,6 +55,23 @@ export const Home = () => {
 
     fetchData();
   }, []);
+
+  // Export Data to Excel
+  const exportToExcel = () => {
+    const wb = XLSX.utils.book_new();  // Create a new workbook
+
+    Object.keys(data).forEach((section) => {
+      const sectionData = data[section];
+      if (sectionData && sectionData.length > 0) {
+        // Convert each section to a worksheet
+        const ws = XLSX.utils.json_to_sheet(sectionData);  // Convert JSON to sheet
+        XLSX.utils.book_append_sheet(wb, ws, section);  // Append the sheet to the workbook
+      }
+    });
+
+    // Generate and download the Excel file
+    XLSX.writeFile(wb, "ExportedData.xlsx");
+  };
 
   const toggleExpand = (section) => {
     setExpanded((prev) => ({ ...prev, [section]: !prev[section] }));
@@ -127,80 +140,7 @@ export const Home = () => {
   };
 
   const styles = {
-    sectionContainer: {
-      width: "100%",
-      maxWidth: "1600px",
-      marginBottom: "20px",
-      background: "#fff",
-      padding: "15px",
-      borderRadius: "10px",
-      boxShadow: "0 4px 8px rgba(0,0,0,0.1)",
-    },
-    sectionHeader: {
-      cursor: "pointer",
-      display: "flex",
-      justifyContent: "space-between",
-      alignItems: "center",
-      borderBottom: "2px solid #ddd",
-      paddingBottom: "10px",
-    },
-    itemContainer: {
-      marginTop: "10px",
-      display: "flex",
-      flexWrap: "wrap",
-      justifyContent: "flex-start",
-      maxHeight: "220px",
-      overflow: "hidden",
-    },
-    itemContainerExpanded: {
-      marginTop: "10px",
-      display: "flex",
-      flexWrap: "wrap",
-      justifyContent: "flex-start",
-    },
-    itemCard: {
-      backgroundColor: "#f0f0f0",
-      padding: "15px",
-      margin: "10px",
-      border: "1px solid #ccc",
-      borderRadius: "10px",
-      width: "220px",
-      height: "160px",
-      display: "flex",
-      flexDirection: "column",
-      justifyContent: "center",
-      alignItems: "center",
-      textAlign: "center",
-      position: "relative",
-    },
-    headerRow: {
-      display: "flex",
-      justifyContent: "space-between",
-      alignItems: "center",
-      width: "100%",
-      maxWidth: "1600px",
-      marginBottom: "20px",
-    },
-    editButton: {
-      backgroundColor: "#28a745",
-      color: "#fff",
-      padding: "8px 12px",
-      border: "none",
-      borderRadius: "5px",
-      cursor: "pointer",
-    },
-    actionButtons: {
-      position: "absolute",
-      top: "5px",
-      right: "5px",
-      display: "flex",
-      gap: "5px",
-    },
-    iconButton: {
-      background: "transparent",
-      border: "none",
-      cursor: "pointer",
-    },
+    // ... existing styles
     exportButton: {
       position: "fixed",
       bottom: "20px",
@@ -290,7 +230,7 @@ export const Home = () => {
       {renderSection("Restoran Jelo", "restoranJelo")}
       {renderSection("Salon", "salon")}
       {renderSection("Slastičarna", "slasticarna")}
-      <button style={styles.exportButton}>
+      <button style={styles.exportButton} onClick={exportToExcel}>
         Export
       </button>
     </div>
