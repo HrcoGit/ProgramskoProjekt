@@ -1,12 +1,12 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
-import { useParams, useHistory } from "react-router-dom";
+import { useParams } from "react-router-dom";
 
 const EditRestoran = () => {
   const { id } = useParams(); 
-  const history = useHistory();
 
   const [formData, setFormData] = useState({
+    idRestoran: "",
     naziv: "",
     lokacija: "",
     kontakt: "",
@@ -23,7 +23,8 @@ const EditRestoran = () => {
         const response = await axios.get(`http://localhost:5269/api/restoran/${id}`);
         setFormData(response.data);
       } catch (error) {
-        console.error("Error fetching data:", error);
+        console.error("Error fetching restoran data:", error);
+        setMessage("Greška prilikom dohvaćanja podataka.");
       } finally {
         setLoading(false);
       }
@@ -42,11 +43,19 @@ const EditRestoran = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
 
+    const payload = {
+      idRestoran: Number(id),
+      naziv: formData.naziv.trim(),
+      lokacija: formData.lokacija.trim(),
+      kontakt: formData.kontakt.trim(),
+      mail: formData.mail.trim(),
+      mjesto: formData.mjesto.trim(),
+    };
+
     try {
-      const response = await axios.put(`http://localhost:5269/api/restoran/${id}`, formData);
-      if (response.status === 200 || response.status === 201) {
-        setMessage("Podatci uspješno ažurirani!");
-        history.push("/restoran"); 
+      const response = await axios.put(`http://localhost:5269/api/restoran/${id}`, payload);
+      if (response.status === 200) {
+        setMessage("Podaci uspješno ažurirani!");
       }
     } catch (error) {
       setMessage("Greška prilikom ažuriranja podataka.");
@@ -55,21 +64,21 @@ const EditRestoran = () => {
   };
 
   if (loading) {
-    return <p>Loading...</p>;
+    return <p style={{ textAlign: "center", fontSize: "18px" }}>Loading...</p>;
   }
 
   return (
-    <div style={{ maxWidth: "450px", margin: "50px auto", textAlign: "center" }}>
-      <h2>Edit Restoran</h2>
-      <form onSubmit={handleSubmit} style={{ display: "flex", flexDirection: "column", gap: "15px" }}>
+    <div style={styles.container}>
+      <h2 style={styles.heading}>Uredi Restoran</h2>
+      <form onSubmit={handleSubmit} style={styles.form}>
         <input
           type="text"
           name="naziv"
           placeholder="Naziv"
           value={formData.naziv}
           onChange={handleChange}
+          style={styles.input}
           required
-          style={{ padding: "10px", fontSize: "16px", border: "1px solid #ccc", borderRadius: "5px" }}
         />
         <input
           type="text"
@@ -77,8 +86,8 @@ const EditRestoran = () => {
           placeholder="Adresa"
           value={formData.lokacija}
           onChange={handleChange}
+          style={styles.input}
           required
-          style={{ padding: "10px", fontSize: "16px", border: "1px solid #ccc", borderRadius: "5px" }}
         />
         <input
           type="tel"
@@ -86,8 +95,8 @@ const EditRestoran = () => {
           placeholder="Kontakt"
           value={formData.kontakt}
           onChange={handleChange}
+          style={styles.input}
           required
-          style={{ padding: "10px", fontSize: "16px", border: "1px solid #ccc", borderRadius: "5px" }}
         />
         <input
           type="email"
@@ -95,8 +104,8 @@ const EditRestoran = () => {
           placeholder="E-mail"
           value={formData.mail}
           onChange={handleChange}
+          style={styles.input}
           required
-          style={{ padding: "10px", fontSize: "16px", border: "1px solid #ccc", borderRadius: "5px" }}
         />
         <input
           type="text"
@@ -104,29 +113,62 @@ const EditRestoran = () => {
           placeholder="Mjesto"
           value={formData.mjesto}
           onChange={handleChange}
+          style={styles.input}
           required
-          style={{ padding: "10px", fontSize: "16px", border: "1px solid #ccc", borderRadius: "5px" }}
         />
-        <button
-          type="submit"
-          style={{
-            padding: "12px",
-            backgroundColor: "#4caf50",
-            color: "white",
-            fontSize: "16px",
-            border: "none",
-            borderRadius: "5px",
-            cursor: "pointer",
-          }}
-          onMouseOver={(e) => (e.target.style.backgroundColor = "#45a049")}
-          onMouseOut={(e) => (e.target.style.backgroundColor = "#4caf50")}
-        >
+        <button type="submit" style={styles.button}>
           Ažuriraj
         </button>
       </form>
-      {message && <p style={{ marginTop: "20px", fontSize: "18px", color: "#333", fontWeight: "bold" }}>{message}</p>}
+      {message && <p style={styles.message}>{message}</p>}
     </div>
   );
 };
 
 export default EditRestoran;
+
+const styles = {
+  container: {
+    maxWidth: "450px",
+    margin: "50px auto",
+    backgroundColor: "#f9f9f9",
+    padding: "30px",
+    borderRadius: "10px",
+    boxShadow: "0 4px 8px rgba(0, 0, 0, 0.1)",
+    textAlign: "center",
+  },
+  heading: {
+    fontSize: "24px",
+    marginBottom: "20px",
+    color: "#333",
+  },
+  form: {
+    display: "flex",
+    flexDirection: "column",
+    gap: "15px",
+  },
+  input: {
+    padding: "10px",
+    fontSize: "16px",
+    border: "1px solid #ccc",
+    borderRadius: "5px",
+    outline: "none",
+    transition: "border 0.3s",
+  },
+  button: {
+    padding: "12px",
+    backgroundColor: "#4caf50",
+    color: "white",
+    fontSize: "16px",
+    border: "none",
+    borderRadius: "5px",
+    cursor: "pointer",
+    transition: "background-color 0.3s",
+  },
+  message: {
+    marginTop: "20px",
+    fontSize: "18px",
+    color: "#333",
+    fontWeight: "bold",
+  },
+};

@@ -14,18 +14,16 @@ import Ostalo from './views/AddForms/Ostalo';
 import { Home } from './views/Home';
 import Automobil from './views/AddForms/Automobil';
 import Meni from './views/AddForms/Meni';
-import EditAutomobili from './views/EditForme/EditAutomobili';
-import EditCvjecara from './views/EditForme/EditCvjecara';
-import EditDogadjaj from './views/EditForme/EditDogadjaj';
-import EditGlazba from './views/EditForme/EditGlazba';
-import EditIzvjestaj from './views/EditForme/EditIzvjestaj';
-import EditJelo from './views/EditForme/EditJelo';
-import EditMeni from './views/EditForme/EditMeni';
-import EditOstalo from './views/EditForme/EditOstalo';
-import EditPlaylista from './views/EditForme/EditPlaylista';
-import EditRestoran from './views/EditForme/EditRestoran';
-import EditSalon from './views/EditForme/EditSalon';
-import EditSlasticarna from './views/EditForme/EditSlasticarna';
+import EditAutomobil from './views/EditForms/EditAutomobil';
+import EditCvjecara from './views/EditForms/EditCvjecara';
+import EditDogadjaj from './views/EditForms/EditDogadjaj';
+import EditGlazba from './views/EditForms/EditGlazba';
+import EditRestoran from './views/EditForms/EditRestoran';
+import EditSlasticarna from './views/EditForms/EditSlasticarna';
+import EditJelo from './views/EditForms/EditJelo';
+import EditMeni from './views/EditForms/EditMeni';
+import EditOstalo from './views/EditForms/EditOstalo';
+import EditSalon from './views/EditForms/EditSalon';
 
 const AppRouter = () => {
   return (
@@ -48,17 +46,15 @@ const AppRouter = () => {
         <Route path="/dodaj-salon" element={<Salon />} />
         <Route path="/dodaj-restoran" element={<Restoran />} />
         <Route path="/dodaj-slastičarnu" element={<Slasticarna />} />
-        <Route path="/edit-automobil/:id" element={<EditAutomobili />} />
+        <Route path="/edit-automobil/:id" element={<EditAutomobil />} />
         <Route path="/edit-cvjecara/:id" element={<EditCvjecara />} />
         <Route path="/edit-dogadjaj/:id" element={<EditDogadjaj />} />
         <Route path="/edit-glazba/:id" element={<EditGlazba />} />
-        <Route path="/edit-izvjestaj/:id" element={<EditIzvjestaj />} />
         <Route path="/edit-jelo/:id" element={<EditJelo />} />
         <Route path="/edit-meni/:id" element={<EditMeni />} />
         <Route path="/edit-ostalo/:id" element={<EditOstalo />} />
-        <Route path="/edit-playlista/:id" element={<EditPlaylista />} />
         <Route path="/edit-restoran/:id" element={<EditRestoran />} />
-        <Route path="/edit-salon/:id" element={<EditOstalo />} />
+        <Route path="/edit-salon/:id" element={<EditSalon />} />
         <Route path="/edit-slasticarna/:id" element={<EditSlasticarna />} />
 
       </Route>

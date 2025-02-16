@@ -8,11 +8,11 @@ const Salon = () => {
     telefon: "",
     provizija: "",
     cijena: "",
-    broj_mjesta: "",
+    brojMjesta: "",
     velicina: "",
-    poc_angazmana: "",
-    kraj_angazmana: "",
-    id_dogadjaj: null,
+    pocAngazmana: "",
+    krajAngazmana: "",
+    idDogadjaj: null,
   });
 
   const [message, setMessage] = useState("");
@@ -37,11 +37,11 @@ const Salon = () => {
           telefon: "",
           provizija: "",
           cijena: "",
-          broj_mjesta: "",
+          brojMjesta: "",
           velicina: "",
-          poc_angazmana: "",
-          kraj_angazmana: "",
-          id_dogadjaj: null,
+          pocAngazmana: "",
+          krajAngazmana: "",
+          idDogadjaj: null,
         });
       }
     } catch (error) {
@@ -175,9 +175,9 @@ const Salon = () => {
         />
         <input
           type="number"
-          name="broj_mjesta"
+          name="brojMjesta"
           placeholder="Broj Mjesta"
-          value={formData.broj_mjesta}
+          value={formData.brojMjesta}
           onChange={handleChange}
           style={inputStyle}
           onFocus={handleInputFocus}
@@ -197,9 +197,9 @@ const Salon = () => {
         />
         <input
           type="date"
-          name="poc_angazmana"
+          name="pocAngazmana"
           placeholder="Početak Angažmana"
-          value={formData.poc_angazmana}
+          value={formData.pocAngazmana}
           onChange={handleChange}
           style={inputStyle}
           onFocus={handleInputFocus}
@@ -208,9 +208,9 @@ const Salon = () => {
         />
         <input
           type="date"
-          name="kraj_angazmana"
+          name="krajAngazmana"
           placeholder="Kraj Angažmana"
-          value={formData.kraj_angazmana}
+          value={formData.krajAngazmana}
           onChange={handleChange}
           style={inputStyle}
           onFocus={handleInputFocus}

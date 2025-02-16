@@ -1,8 +1,12 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import axios from "axios";
+import { useParams } from "react-router-dom";
 
-const Izvjestaj = () => {
+const EditIzvjestaj = () => {
+  const { id } = useParams(); 
+
   const [formData, setFormData] = useState({
+    idIzvjestaj: "",
     tipIzvjestaja: "",
     podatci: "",
     datumKreiranja: "",
@@ -10,49 +14,102 @@ const Izvjestaj = () => {
   });
 
   const [message, setMessage] = useState("");
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const response = await axios.get(`http://localhost:5269/api/izvjestaj/${id}`);
+        setFormData(response.data);
+      } catch (error) {
+        console.error("Error fetching izvjestaj data:", error);
+        setMessage("Greška prilikom dohvaćanja podataka.");
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchData();
+  }, [id]);
 
   const handleChange = (e) => {
-    const { name, value } = e.target;
     setFormData({
       ...formData,
-      [name]: value,
+      [e.target.name]: e.target.value,
     });
   };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-   
     if (formData.tipIzvjestaja.trim() === "" || formData.podatci.trim() === "") {
       setMessage("Sva polja su obavezna.");
       return;
     }
 
     const payload = {
+      idIzvjestaj: Number(id),
       tipIzvjestaja: formData.tipIzvjestaja.trim(),
       podatci: formData.podatci.trim(),
       datumKreiranja: formData.datumKreiranja,
-      idDogadjaj: null,
+      idDogadjaj: formData.idDogadjaj,
     };
 
     try {
-      const response = await axios.post("http://localhost:5269/api/izvjestaj", payload);
-      if (response.status === 200 || response.status === 201) {
-        setMessage("Podatci uspješno poslani!");
-        setFormData({
-          tipIzvjestaja: "",
-          podatci: "",
-          datumKreiranja: "",
-          idDogadjaj: null,
-        });
+      const response = await axios.put(`http://localhost:5269/api/izvjestaj/${id}`, payload);
+      if (response.status === 200) {
+        setMessage("Podaci uspješno ažurirani!");
       }
     } catch (error) {
-      setMessage("Greška prilikom slanja podataka.");
+      setMessage("Greška prilikom ažuriranja podataka.");
       console.error("Error:", error);
     }
   };
 
-  const containerStyle = {
+  if (loading) {
+    return <p style={{ textAlign: "center", fontSize: "18px" }}>Loading...</p>;
+  }
+
+  return (
+    <div style={styles.container}>
+      <h2 style={styles.heading}>Uredi Izvještaj</h2>
+      <form onSubmit={handleSubmit} style={styles.form}>
+        <input
+          type="text"
+          name="tipIzvjestaja"
+          placeholder="Tip Izvještaja"
+          value={formData.tipIzvjestaja}
+          onChange={handleChange}
+          style={styles.input}
+          required
+        />
+        <textarea
+          name="podatci"
+          placeholder="Podatci"
+          value={formData.podatci}
+          onChange={handleChange}
+          style={styles.textarea}
+          required
+        />
+        <input
+          type="date"
+          name="datumKreiranja"
+          value={formData.datumKreiranja}
+          onChange={handleChange}
+          style={styles.input}
+          required
+        />
+        <button type="submit" style={styles.button}>Ažuriraj</button>
+      </form>
+      {message && <p style={styles.message}>{message}</p>}
+    </div>
+  );
+};
+
+export default EditIzvjestaj;
+
+const styles = {
+  container: {
     maxWidth: "450px",
     margin: "50px auto",
     backgroundColor: "#f9f9f9",
@@ -60,30 +117,36 @@ const Izvjestaj = () => {
     borderRadius: "10px",
     boxShadow: "0 4px 8px rgba(0, 0, 0, 0.1)",
     textAlign: "center",
-  };
-
-  const headingStyle = {
+  },
+  heading: {
     fontSize: "24px",
     marginBottom: "20px",
     color: "#333",
-  };
-
-  const formStyle = {
+  },
+  form: {
     display: "flex",
     flexDirection: "column",
     gap: "15px",
-  };
-
-  const inputStyle = {
+  },
+  input: {
     padding: "10px",
     fontSize: "16px",
     border: "1px solid #ccc",
     borderRadius: "5px",
     outline: "none",
     transition: "border 0.3s",
-  };
-
-  const buttonStyle = {
+  },
+  textarea: {
+    padding: "10px",
+    fontSize: "16px",
+    border: "1px solid #ccc",
+    borderRadius: "5px",
+    outline: "none",
+    transition: "border 0.3s",
+    resize: "vertical",
+    height: "80px",
+  },
+  button: {
     padding: "12px",
     backgroundColor: "#4caf50",
     color: "white",
@@ -92,60 +155,11 @@ const Izvjestaj = () => {
     borderRadius: "5px",
     cursor: "pointer",
     transition: "background-color 0.3s",
-  };
-
-  const buttonHoverStyle = {
-    backgroundColor: "#45a049",
-  };
-
-  const messageStyle = {
+  },
+  message: {
     marginTop: "20px",
     fontSize: "18px",
     color: "#333",
     fontWeight: "bold",
-  };
-
-  return (
-    <div style={containerStyle}>
-      <h2 style={headingStyle}>Unos Izvještaja</h2>
-      <form onSubmit={handleSubmit} style={formStyle}>
-        <input
-          type="text"
-          name="tipIzvjestaja"
-          placeholder="Tip Izvještaja"
-          value={formData.tipIzvjestaja}
-          onChange={handleChange}
-          style={inputStyle}
-          required
-        />
-        <textarea
-          name="podatci"
-          placeholder="Podatci"
-          value={formData.podatci}
-          onChange={handleChange}
-          style={{ ...inputStyle, height: "80px" }}
-          required
-        />
-        <input
-          type="date"
-          name="datumKreiranja"
-          value={formData.datumKreiranja}
-          onChange={handleChange}
-          style={inputStyle}
-          required
-        />
-        <button
-          type="submit"
-          style={buttonStyle}
-          onMouseOver={(e) => (e.target.style.backgroundColor = buttonHoverStyle.backgroundColor)}
-          onMouseOut={(e) => (e.target.style.backgroundColor = "#4caf50")}
-        >
-          Pošalji
-        </button>
-      </form>
-      {message && <p style={messageStyle}>{message}</p>}
-    </div>
-  );
+  },
 };
-
-export default Izvjestaj;

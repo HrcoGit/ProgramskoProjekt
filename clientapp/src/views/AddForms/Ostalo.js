@@ -9,7 +9,7 @@ const Ostalo = () => {
     email: "",
     provizija: "",
     cijena: "",
-    nazivUsluge: "",
+    nazivUsuge: "",
     pocAngazmana: "",
     krajAngazmana: "",
     idDogadjaj: null,
@@ -35,7 +35,7 @@ const Ostalo = () => {
       email: formData.email.trim(),
       provizija: formData.provizija ? parseFloat(formData.provizija) : 0,
       cijena: formData.cijena ? parseFloat(formData.cijena) : 0,
-      nazivUsluge: formData.nazivUsluge.trim(),
+      nazivUsuge: formData.nazivUsuge.trim(),
       pocAngazmana: formData.pocAngazmana,
       krajAngazmana: formData.krajAngazmana,
       idDogadjaj: null,
@@ -54,7 +54,7 @@ const Ostalo = () => {
           email: "",
           provizija: "",
           cijena: "",
-          nazivUsluge: "",
+          nazivUsuge: "",
           pocAngazmana: "",
           krajAngazmana: "",
           idDogadjaj: null,
@@ -179,9 +179,9 @@ const Ostalo = () => {
         />
         <input
           type="text"
-          name="nazivUsluge"
+          name="nazivUsuge"
           placeholder="Naziv Usluge"
-          value={formData.nazivUsluge}
+          value={formData.nazivUsuge}
           onChange={handleChange}
           style={inputStyle}
           required

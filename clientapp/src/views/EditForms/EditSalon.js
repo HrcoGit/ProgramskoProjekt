@@ -1,27 +1,28 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
-import { useParams, useHistory } from "react-router-dom";
+import { useParams } from "react-router-dom";
 
 const EditSalon = () => {
-  const { id } = useParams(); 
-  const history = useHistory();
+  const { id } = useParams(); // Get salon ID from URL parameters
 
   const [formData, setFormData] = useState({
+    idSalon: "",
     ime: "",
     adresa: "",
     telefon: "",
     provizija: "",
     cijena: "",
-    broj_mjesta: "",
+    brojMjesta: "",
     velicina: "",
-    poc_angazmana: "",
-    kraj_angazmana: "",
-    id_dogadjaj: null,
+    pocAngazmana: "",
+    krajAngazmana: "",
+    idDogadjaj: null,
   });
 
   const [message, setMessage] = useState("");
   const [loading, setLoading] = useState(true);
 
+  // Fetch salon data when component mounts
   useEffect(() => {
     const fetchData = async () => {
       try {
@@ -29,6 +30,7 @@ const EditSalon = () => {
         setFormData(response.data);
       } catch (error) {
         console.error("Error fetching data:", error);
+        setMessage("Greška prilikom dohvaćanja podataka.");
       } finally {
         setLoading(false);
       }
@@ -47,11 +49,24 @@ const EditSalon = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
 
+    const payload = {
+      idSalon: Number(id),
+      ime: formData.ime.trim(),
+      adresa: formData.adresa.trim(),
+      telefon: formData.telefon.trim(),
+      provizija: parseFloat(formData.provizija) || 0,
+      cijena: parseFloat(formData.cijena) || 0,
+      brojMjesta: parseInt(formData.brojMjesta) || 0,
+      velicina: parseFloat(formData.velicina) || 0,
+      pocAngazmana: formData.pocAngazmana,
+      krajAngazmana: formData.krajAngazmana,
+      idDogadjaj: null,
+    };
+
     try {
-      const response = await axios.put(`http://localhost:5269/api/salon/${id}`, formData);
+      const response = await axios.put(`http://localhost:5269/api/salon/${id}`, payload);
       if (response.status === 200 || response.status === 201) {
         setMessage("Podatci uspješno ažurirani!");
-        history.push("/salon"); 
       }
     } catch (error) {
       setMessage("Greška prilikom ažuriranja podataka.");
@@ -60,21 +75,21 @@ const EditSalon = () => {
   };
 
   if (loading) {
-    return <p>Loading...</p>;
+    return <p style={{ textAlign: "center", fontSize: "18px" }}>Loading...</p>;
   }
 
   return (
-    <div style={{ maxWidth: "450px", margin: "50px auto", textAlign: "center" }}>
-      <h2>Edit Salon</h2>
-      <form onSubmit={handleSubmit} style={{ display: "flex", flexDirection: "column", gap: "15px" }}>
+    <div style={containerStyle}>
+      <h2 style={headingStyle}>Uredi Salon</h2>
+      <form onSubmit={handleSubmit} style={formStyle}>
         <input
           type="text"
           name="ime"
           placeholder="Ime"
           value={formData.ime}
           onChange={handleChange}
+          style={inputStyle}
           required
-          style={{ padding: "10px", fontSize: "16px", border: "1px solid #ccc", borderRadius: "5px" }}
         />
         <input
           type="text"
@@ -82,8 +97,8 @@ const EditSalon = () => {
           placeholder="Adresa"
           value={formData.adresa}
           onChange={handleChange}
+          style={inputStyle}
           required
-          style={{ padding: "10px", fontSize: "16px", border: "1px solid #ccc", borderRadius: "5px" }}
         />
         <input
           type="text"
@@ -91,83 +106,118 @@ const EditSalon = () => {
           placeholder="Telefon"
           value={formData.telefon}
           onChange={handleChange}
+          style={inputStyle}
           required
-          style={{ padding: "10px", fontSize: "16px", border: "1px solid #ccc", borderRadius: "5px" }}
         />
         <input
           type="number"
           name="provizija"
-          placeholder="Provizija"
+          placeholder="Provizija (%)"
           value={formData.provizija}
           onChange={handleChange}
+          style={inputStyle}
           required
-          style={{ padding: "10px", fontSize: "16px", border: "1px solid #ccc", borderRadius: "5px" }}
         />
         <input
           type="number"
           name="cijena"
-          placeholder="Cijena"
+          placeholder="Cijena (KM)"
           value={formData.cijena}
           onChange={handleChange}
+          style={inputStyle}
           required
-          style={{ padding: "10px", fontSize: "16px", border: "1px solid #ccc", borderRadius: "5px" }}
         />
         <input
           type="number"
-          name="broj_mjesta"
+          name="brojMjesta"
           placeholder="Broj Mjesta"
-          value={formData.broj_mjesta}
+          value={formData.brojMjesta}
           onChange={handleChange}
+          style={inputStyle}
           required
-          style={{ padding: "10px", fontSize: "16px", border: "1px solid #ccc", borderRadius: "5px" }}
         />
         <input
           type="number"
           name="velicina"
-          placeholder="Velicina"
+          placeholder="Veličina (m²)"
           value={formData.velicina}
           onChange={handleChange}
+          style={inputStyle}
           required
-          style={{ padding: "10px", fontSize: "16px", border: "1px solid #ccc", borderRadius: "5px" }}
         />
         <input
           type="date"
-          name="poc_angazmana"
-          placeholder="Početak Angažmana"
-          value={formData.poc_angazmana}
+          name="pocAngazmana"
+          value={formData.pocAngazmana}
           onChange={handleChange}
+          style={inputStyle}
           required
-          style={{ padding: "10px", fontSize: "16px", border: "1px solid #ccc", borderRadius: "5px" }}
         />
         <input
           type="date"
-          name="kraj_angazmana"
-          placeholder="Kraj Angažmana"
-          value={formData.kraj_angazmana}
+          name="krajAngazmana"
+          value={formData.krajAngazmana}
           onChange={handleChange}
+          style={inputStyle}
           required
-          style={{ padding: "10px", fontSize: "16px", border: "1px solid #ccc", borderRadius: "5px" }}
         />
-        <button
-          type="submit"
-          style={{
-            padding: "12px",
-            backgroundColor: "#4caf50",
-            color: "white",
-            fontSize: "16px",
-            border: "none",
-            borderRadius: "5px",
-            cursor: "pointer",
-          }}
-          onMouseOver={(e) => (e.target.style.backgroundColor = "#45a049")}
-          onMouseOut={(e) => (e.target.style.backgroundColor = "#4caf50")}
-        >
+        <button type="submit" style={buttonStyle}>
           Ažuriraj
         </button>
       </form>
-      {message && <p style={{ marginTop: "20px", fontSize: "18px", color: "#333", fontWeight: "bold" }}>{message}</p>}
+      {message && <p style={messageStyle}>{message}</p>}
     </div>
   );
 };
 
 export default EditSalon;
+
+// Styles
+const containerStyle = {
+  maxWidth: "450px",
+  margin: "50px auto",
+  backgroundColor: "#f9f9f9",
+  padding: "30px",
+  borderRadius: "10px",
+  boxShadow: "0 4px 8px rgba(0, 0, 0, 0.1)",
+  textAlign: "center",
+};
+
+const headingStyle = {
+  fontSize: "24px",
+  marginBottom: "20px",
+  color: "#333",
+};
+
+const formStyle = {
+  display: "flex",
+  flexDirection: "column",
+  gap: "15px",
+};
+
+const inputStyle = {
+  padding: "10px",
+  fontSize: "16px",
+  border: "1px solid #ccc",
+  borderRadius: "5px",
+  outline: "none",
+  transition: "border 0.3s",
+};
+
+const buttonStyle = {
+  padding: "12px",
+  backgroundColor: "#4caf50",
+  color: "white",
+  fontSize: "16px",
+  border: "none",
+  borderRadius: "5px",
+  cursor: "pointer",
+  transition: "background-color 0.3s",
+};
+
+const messageStyle = {
+  marginTop: "20px",
+  fontSize: "18px",
+  color: "#333",
+  fontWeight: "bold",
+};

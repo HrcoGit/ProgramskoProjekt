@@ -1,19 +1,19 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
-import { useParams, useHistory } from "react-router-dom";
+import { useParams } from "react-router-dom";
 
 const EditOstalo = () => {
   const { id } = useParams(); 
-  const history = useHistory();
 
   const [formData, setFormData] = useState({
+    idOstalo: "",
     ime: "",
     adresa: "",
     telefon: "",
     email: "",
     provizija: "",
     cijena: "",
-    nazivUsluge: "",
+    nazivUsuge: "",
     pocAngazmana: "",
     krajAngazmana: "",
     idDogadjaj: null,
@@ -49,13 +49,14 @@ const EditOstalo = () => {
     e.preventDefault();
 
     const payload = {
+      idOstalo: Number(id),
       ime: formData.ime.trim(),
       adresa: formData.adresa.trim(),
       telefon: formData.telefon.trim(),
       email: formData.email.trim(),
       provizija: formData.provizija ? parseFloat(formData.provizija) : 0,
       cijena: formData.cijena ? parseFloat(formData.cijena) : 0,
-      nazivUsluge: formData.nazivUsluge.trim(),
+      nazivUsuge: formData.nazivUsuge.trim(),
       pocAngazmana: formData.pocAngazmana,
       krajAngazmana: formData.krajAngazmana,
       idDogadjaj: null,
@@ -64,8 +65,7 @@ const EditOstalo = () => {
     try {
       const response = await axios.put(`http://localhost:5269/api/ostalo/${id}`, payload);
       if (response.status === 200 || response.status === 201) {
-        setMessage("Podatci uspješno ažurirani!");
-        history.push('/ostalo'); 
+        setMessage("Podatci uspješno ažurirani!"); 
       }
     } catch (error) {
       setMessage("Greška prilikom ažuriranja podataka.");
@@ -137,9 +137,9 @@ const EditOstalo = () => {
         />
         <input
           type="text"
-          name="nazivUsluge"
+          name="nazivUsuge"
           placeholder="Naziv Usluge"
-          value={formData.nazivUsluge}
+          value={formData.nazivUsuge}
           onChange={handleChange}
           style={inputStyle}
           required
