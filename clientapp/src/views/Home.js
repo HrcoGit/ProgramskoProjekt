@@ -4,6 +4,8 @@ import {
   FaChevronDown,
   FaPencilAlt,
   FaTimes,
+  FaPlus,
+  FaDownload,
 } from "react-icons/fa";
 import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
@@ -41,9 +43,9 @@ export const Home = () => {
         const responses = await Promise.all(
           endpoints.map((endpoint) =>
             fetch(`http://localhost:5269/api/${endpoint}`).then((res) =>
-              res.json()
-            )
-          )
+              res.json(),
+            ),
+          ),
         );
 
         const newData = endpoints.reduce((acc, key, index) => {
@@ -114,17 +116,58 @@ export const Home = () => {
           [key]: prev[key].filter((i) => i[idFieldMap[key]] !== id),
         }));
         toast.success(
-          `${key.toUpperCase().slice(0, 1) + key.slice(1)} izbrisan`
+          `${key.toUpperCase().slice(0, 1) + key.slice(1)} izbrisan`,
         );
       } catch (error) {
         toast.error(
           `Greška prilikom brisanja ${
             key.toUpperCase().slice(0) + key.slice(1)
-          }`
+          }`,
         );
         console.error("Error deleting item:", error);
       }
     }
+  };
+
+  // Updated addRoutes to match your AppRouter paths
+  const addRoutes = {
+    dogadjaj: "/dodaj-svatove",
+    automobili: "/dodaj-automobil",
+    cvjecara: "/dodaj-cvjećarnu",
+    glazba: "/dodaj-glazbu",
+    restoran: "/dodaj-restoran",
+    restoranJelo: "/dodaj-jelo",
+    salon: "/dodaj-salon",
+    slasticarna: "/dodaj-slastičarnu",
+  };
+
+  const handleAdd = (key) => {
+    if (addRoutes[key]) navigate(addRoutes[key]);
+  };
+
+  // Function to render availability based on pocAngazmana and krajAngazmana
+  const renderAvailability = (item) => {
+    if (item.pocAngazmana && item.krajAngazmana) {
+      const current = new Date();
+      const start = new Date(item.pocAngazmana);
+      const end = new Date(item.krajAngazmana);
+      if (current >= start && current <= end) {
+        return <div style={styles.availabilityAvailable}>Dostupno sada!</div>;
+      } else if (current < start) {
+        return (
+          <div style={styles.availabilityNotAvailable}>
+            Dostupno od: {item.pocAngazmana}
+          </div>
+        );
+      } else if (current > end) {
+        return (
+          <div style={styles.availabilityNotAvailable}>
+            Isteklo: {item.krajAngazmana}
+          </div>
+        );
+      }
+    }
+    return null;
   };
 
   // Styles object inside the Home component
@@ -161,10 +204,9 @@ export const Home = () => {
       justifyContent: "flex-start",
     },
     itemCard: {
-      backgroundColor: "#f0f0f0",
+      backgroundColor: "#fff7ed",
       padding: "15px",
       margin: "10px",
-      border: "1px solid #ccc",
       borderRadius: "10px",
       width: "220px",
       height: "160px",
@@ -175,6 +217,19 @@ export const Home = () => {
       textAlign: "center",
       position: "relative",
     },
+    // New add item card style: matching dimensions, transparent background, dashed green border
+    addItemCard: {
+      backgroundColor: "transparent",
+      border: "2px dashed #28a745",
+      borderRadius: "10px",
+      width: "220px",
+      height: "188px",
+      display: "flex",
+      justifyContent: "center",
+      alignItems: "center",
+      margin: "10px",
+      cursor: "pointer",
+    },
     headerRow: {
       display: "flex",
       justifyContent: "space-between",
@@ -184,11 +239,11 @@ export const Home = () => {
       marginBottom: "20px",
     },
     editButton: {
-      backgroundColor: "#28a745",
-      color: "#fff",
-      padding: "8px 12px",
+      backgroundColor: "#f7f7f7",
+      color: "#333",
+      padding: "10px",
       border: "none",
-      borderRadius: "5px",
+      borderRadius: "50%",
       cursor: "pointer",
     },
     actionButtons: {
@@ -216,9 +271,39 @@ export const Home = () => {
       cursor: "pointer",
       borderRadius: "5px",
     },
+    availabilityAvailable: {
+      color: "#28a745",
+      border: "1px solid #28a745",
+      backgroundColor: "#e6f9e6",
+      padding: "4px 8px",
+      borderRadius: "5px",
+      fontSize: "14px",
+      margin: "4px",
+    },
+    availabilityNotAvailable: {
+      color: "#dc3545",
+      border: "1px solid #dc3545",
+      backgroundColor: "#fde2e2",
+      padding: "4px 8px",
+      borderRadius: "5px",
+      fontSize: "14px",
+      margin: "4px",
+    },
+    // New style for price info line
+    priceInfo: {
+      fontSize: "14px",
+      marginTop: "2px",
+      color: "#555",
+      fontWeight: "bold",
+    },
+    // New style for the price label above the main price
+    priceLabel: {
+      fontSize: "12px",
+      marginBottom: "2px",
+      color: "#777",
+    },
   };
 
-  // Function to export data to Excel
   const handleExport = () => {
     const wb = XLSX.utils.book_new();
     Object.keys(data).forEach((key) => {
@@ -259,18 +344,44 @@ export const Home = () => {
                   </button>
                 </div>
               )}
-              <h3>
+              <h3 style={{ fontSize: "24px", margin: "4px" }}>
                 {item.tipDogadjaja ||
                   item.marka ||
                   item.ime ||
                   item.naziv ||
                   "N/A"}
               </h3>
-              <p>
+              <p style={{ fontSize: "20px", margin: "4px" }}>
                 {item.model || item.lokacija || item.adresa || item.datum || ""}
               </p>
+              {/* Price info: label and main price */}
+              {item.cijena != null && item.provizija != null && (
+                <>
+                  <p style={styles.priceLabel}>
+                    ({item.cijena} KM + {item.provizija}%)
+                  </p>
+                  <p style={styles.priceInfo}>
+                    Cijena:{" "}
+                    {(
+                      item.cijena +
+                      (item.cijena * item.provizija) / 100
+                    ).toFixed(2)}{" "}
+                    KM
+                  </p>
+                </>
+              )}
+              {renderAvailability(item)}
             </div>
           ))}
+          {editMode && (
+            <div
+              style={styles.addItemCard}
+              onClick={() => handleAdd(key)}
+              title="Dodaj novo"
+            >
+              <FaPlus size={24} color="#28a745" />
+            </div>
+          )}
         </div>
       </div>
     );
@@ -288,24 +399,34 @@ export const Home = () => {
     >
       <div style={styles.headerRow}>
         <h1>Ženim se?</h1>
-        <button
-          style={styles.editButton}
-          onClick={() => setEditMode(!editMode)}
+        <div
+          style={{
+            display: "flex",
+            gap: "10px",
+            position: "fixed",
+            right: "20px",
+            top: "5px",
+            zIndex: 1001,
+          }}
         >
-          Edit
-        </button>
+          <button
+            style={styles.editButton}
+            onClick={() => setEditMode(!editMode)}
+          >
+            <FaPencilAlt />
+          </button>
+          <button style={styles.editButton} onClick={handleExport}>
+            <FaDownload />
+          </button>
+        </div>
       </div>
       {renderSection("Dogadjaj", "dogadjaj")}
       {renderSection("Automobili", "automobili")}
       {renderSection("Cvjećara", "cvjecara")}
       {renderSection("Glazba", "glazba")}
       {renderSection("Restoran", "restoran")}
-      {renderSection("Restoran Jelo", "restoranJelo")}
       {renderSection("Salon", "salon")}
       {renderSection("Slastičarna", "slasticarna")}
-      <button style={styles.exportButton} onClick={handleExport}>
-        Export
-      </button>
     </div>
   );
 };

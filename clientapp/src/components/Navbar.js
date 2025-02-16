@@ -39,7 +39,7 @@ const Navbar = () => {
           </li>
         </ul>
       </div>
-      <div style={styles.dropdownContainer}>
+      {/* <div style={styles.dropdownContainer}>
         <button style={styles.addNew} onClick={toggleDropdown}>
           +
         </button>
@@ -73,6 +73,7 @@ const Navbar = () => {
           </div>
         )}
       </div>
+      */}
     </nav>
   );
 };
@@ -85,7 +86,10 @@ const styles = {
     backgroundColor: "#C09560",
     padding: "10px 20px",
     color: "#fff",
-    position: "relative",
+    position: "fixed",
+    top: 0,
+    minWidth: "100%",
+    zIndex: 1000,
   },
   logo: {
     display: "flex",
