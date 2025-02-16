@@ -127,6 +127,7 @@ export const Home = () => {
     }
   };
 
+  // Styles object inside the Home component
   const styles = {
     sectionContainer: {
       width: "100%",
