@@ -7,6 +7,7 @@ import {
 } from "react-icons/fa";
 import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
+import * as XLSX from "xlsx"; // Importing xlsx
 
 export const Home = () => {
   const [data, setData] = useState({
@@ -40,9 +41,9 @@ export const Home = () => {
         const responses = await Promise.all(
           endpoints.map((endpoint) =>
             fetch(`http://localhost:5269/api/${endpoint}`).then((res) =>
-              res.json(),
-            ),
-          ),
+              res.json()
+            )
+          )
         );
 
         const newData = endpoints.reduce((acc, key, index) => {
@@ -113,18 +114,20 @@ export const Home = () => {
           [key]: prev[key].filter((i) => i[idFieldMap[key]] !== id),
         }));
         toast.success(
-          `${key.toUpperCase().slice(0, 1) + key.slice(1)} izbrisan`,
+          `${key.toUpperCase().slice(0, 1) + key.slice(1)} izbrisan`
         );
       } catch (error) {
         toast.error(
           `Greška prilikom brisanja ${
             key.toUpperCase().slice(0) + key.slice(1)
-          }`,
+          }`
         );
         console.error("Error deleting item:", error);
       }
     }
   };
+
+  // Styles object inside the Home component
   const styles = {
     sectionContainer: {
       width: "100%",
@@ -181,7 +184,7 @@ export const Home = () => {
       marginBottom: "20px",
     },
     editButton: {
-      backgroundColor: "#007bff",
+      backgroundColor: "#28a745",
       color: "#fff",
       padding: "8px 12px",
       border: "none",
@@ -200,6 +203,30 @@ export const Home = () => {
       border: "none",
       cursor: "pointer",
     },
+    exportButton: {
+      position: "fixed",
+      bottom: "20px",
+      left: "50%",
+      transform: "translateX(-50%)",
+      padding: "10px 20px",
+      backgroundColor: "#28a745",
+      color: "#fff",
+      border: "none",
+      fontSize: "16px",
+      cursor: "pointer",
+      borderRadius: "5px",
+    },
+  };
+
+  // Function to export data to Excel
+  const handleExport = () => {
+    const wb = XLSX.utils.book_new();
+    Object.keys(data).forEach((key) => {
+      const ws = XLSX.utils.json_to_sheet(data[key]);
+      XLSX.utils.book_append_sheet(wb, ws, key);
+    });
+    // Save the Excel file
+    XLSX.writeFile(wb, "exported_data.xlsx");
   };
 
   const renderSection = (title, key) => {
@@ -276,6 +303,9 @@ export const Home = () => {
       {renderSection("Restoran Jelo", "restoranJelo")}
       {renderSection("Salon", "salon")}
       {renderSection("Slastičarna", "slasticarna")}
+      <button style={styles.exportButton} onClick={handleExport}>
+        Export
+      </button>
     </div>
   );
 };
