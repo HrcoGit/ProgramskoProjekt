@@ -3,7 +3,7 @@ import axios from "axios";
 import { useParams } from "react-router-dom";
 
 const EditOstalo = () => {
-  const { id } = useParams(); 
+  const { id } = useParams();
 
   const [formData, setFormData] = useState({
     idOstalo: "",
@@ -25,7 +25,9 @@ const EditOstalo = () => {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await axios.get(`http://localhost:5269/api/ostalo/${id}`);
+        const response = await axios.get(
+          `http://localhost:5269/api/ostalo/${id}`,
+        );
         setFormData(response.data);
       } catch (error) {
         console.error("Error fetching data:", error);
@@ -63,9 +65,12 @@ const EditOstalo = () => {
     };
 
     try {
-      const response = await axios.put(`http://localhost:5269/api/ostalo/${id}`, payload);
+      const response = await axios.put(
+        `http://localhost:5269/api/ostalo/${id}`,
+        payload,
+      );
       if (response.status === 200 || response.status === 201) {
-        setMessage("Podatci uspješno ažurirani!"); 
+        setMessage("Podatci uspješno ažurirani!");
       }
     } catch (error) {
       setMessage("Greška prilikom ažuriranja podataka.");

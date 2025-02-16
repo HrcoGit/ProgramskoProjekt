@@ -44,7 +44,10 @@ const Ostalo = () => {
     console.log("Submitting Payload:", payload); // 🔍 Log before sending
 
     try {
-      const response = await axios.post("http://localhost:5269/api/ostalo", payload);
+      const response = await axios.post(
+        "http://localhost:5269/api/ostalo",
+        payload,
+      );
       if (response.status === 200 || response.status === 201) {
         setMessage("Podatci uspješno poslani!");
         setFormData({
@@ -205,7 +208,9 @@ const Ostalo = () => {
         <button
           type="submit"
           style={buttonStyle}
-          onMouseOver={(e) => (e.target.style.backgroundColor = buttonHoverStyle.backgroundColor)}
+          onMouseOver={(e) =>
+            (e.target.style.backgroundColor = buttonHoverStyle.backgroundColor)
+          }
           onMouseOut={(e) => (e.target.style.backgroundColor = "#4caf50")}
         >
           Pošalji

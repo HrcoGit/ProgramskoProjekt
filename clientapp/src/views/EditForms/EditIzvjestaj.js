@@ -3,7 +3,7 @@ import axios from "axios";
 import { useParams } from "react-router-dom";
 
 const EditIzvjestaj = () => {
-  const { id } = useParams(); 
+  const { id } = useParams();
 
   const [formData, setFormData] = useState({
     idIzvjestaj: "",
@@ -19,7 +19,9 @@ const EditIzvjestaj = () => {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await axios.get(`http://localhost:5269/api/izvjestaj/${id}`);
+        const response = await axios.get(
+          `http://localhost:5269/api/izvjestaj/${id}`,
+        );
         setFormData(response.data);
       } catch (error) {
         console.error("Error fetching izvjestaj data:", error);
@@ -42,7 +44,10 @@ const EditIzvjestaj = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    if (formData.tipIzvjestaja.trim() === "" || formData.podatci.trim() === "") {
+    if (
+      formData.tipIzvjestaja.trim() === "" ||
+      formData.podatci.trim() === ""
+    ) {
       setMessage("Sva polja su obavezna.");
       return;
     }
@@ -56,7 +61,10 @@ const EditIzvjestaj = () => {
     };
 
     try {
-      const response = await axios.put(`http://localhost:5269/api/izvjestaj/${id}`, payload);
+      const response = await axios.put(
+        `http://localhost:5269/api/izvjestaj/${id}`,
+        payload,
+      );
       if (response.status === 200) {
         setMessage("Podaci uspješno ažurirani!");
       }
@@ -99,7 +107,9 @@ const EditIzvjestaj = () => {
           style={styles.input}
           required
         />
-        <button type="submit" style={styles.button}>Ažuriraj</button>
+        <button type="submit" style={styles.button}>
+          Ažuriraj
+        </button>
       </form>
       {message && <p style={styles.message}>{message}</p>}
     </div>

@@ -1,9 +1,9 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
-import { useParams } from "react-router-dom"; 
+import { useParams } from "react-router-dom";
 
 const EditJelo = () => {
-  const { id } = useParams(); 
+  const { id } = useParams();
 
   const [formData, setFormData] = useState({
     idJelo: "",
@@ -21,7 +21,9 @@ const EditJelo = () => {
   useEffect(() => {
     const fetchJeloData = async () => {
       try {
-        const response = await axios.get(`http://localhost:5269/api/jelo/${id}`);
+        const response = await axios.get(
+          `http://localhost:5269/api/jelo/${id}`,
+        );
         setFormData(response.data);
       } catch (error) {
         console.error("Error fetching jelo data:", error);
@@ -54,7 +56,10 @@ const EditJelo = () => {
         sastojci: formData.sastojci,
       };
 
-      const response = await axios.put(`http://localhost:5269/api/jelo/${id}`, payload);
+      const response = await axios.put(
+        `http://localhost:5269/api/jelo/${id}`,
+        payload,
+      );
       if (response.status === 200) {
         setMessage("Podaci uspješno ažurirani!");
       }

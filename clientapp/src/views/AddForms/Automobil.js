@@ -33,11 +33,14 @@ const Automobil = () => {
       pocAngazmana: formData.pocAngazmana,
       krajAngazmana: formData.krajAngazmana,
       idDogadjaj: null,
-      idDogadjajNavigation: null
+      idDogadjajNavigation: null,
     };
 
     try {
-      const response = await axios.post("http://localhost:5269/api/automobili", payload);
+      const response = await axios.post(
+        "http://localhost:5269/api/automobili",
+        payload,
+      );
       setMessage("Podatci uspješno poslani!");
     } catch (error) {
       console.error("Error:", error);
@@ -181,7 +184,9 @@ const Automobil = () => {
         <button
           type="submit"
           style={buttonStyle}
-          onMouseOver={(e) => (e.target.style.backgroundColor = buttonHoverStyle.backgroundColor)}
+          onMouseOver={(e) =>
+            (e.target.style.backgroundColor = buttonHoverStyle.backgroundColor)
+          }
           onMouseOut={(e) => (e.target.style.backgroundColor = "#4caf50")}
         >
           Submit

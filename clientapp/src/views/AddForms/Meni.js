@@ -78,7 +78,7 @@ const Meni = () => {
 
           console.log("Submitting Payload:", payload);
           return axios.post("http://localhost:5269/api/RestoranJelo", payload);
-        })
+        }),
       );
 
       setMessage("Podatci uspješno poslani!");
@@ -89,7 +89,9 @@ const Meni = () => {
     }
   };
 
-  const availableJela = jela.filter((jelo) => !formData.selectedJela.includes(jelo.idJelo.toString()));
+  const availableJela = jela.filter(
+    (jelo) => !formData.selectedJela.includes(jelo.idJelo.toString()),
+  );
 
   return (
     <div style={styles.container}>
@@ -118,7 +120,6 @@ const Meni = () => {
             </option>
           ))}
         </select>
-        
 
         {formData.selectedJela.length > 0 && (
           <div style={{ marginTop: "15px" }}>
@@ -146,7 +147,10 @@ const Meni = () => {
         <button
           type="submit"
           style={styles.button}
-          onMouseOver={(e) => (e.target.style.backgroundColor = styles.buttonHover.backgroundColor)}
+          onMouseOver={(e) =>
+            (e.target.style.backgroundColor =
+              styles.buttonHover.backgroundColor)
+          }
           onMouseOut={(e) => (e.target.style.backgroundColor = "#4caf50")}
         >
           Pošalji

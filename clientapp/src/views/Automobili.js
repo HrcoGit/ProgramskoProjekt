@@ -1,5 +1,5 @@
-import React, { useEffect, useState } from 'react';
-import axios from 'axios';
+import React, { useEffect, useState } from "react";
+import axios from "axios";
 
 const Automobili = () => {
   const [data, setData] = useState([]);
@@ -8,10 +8,12 @@ const Automobili = () => {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await axios.get('http://localhost:5269/api/automobili'); // Replace with your API URL
+        const response = await axios.get(
+          "http://localhost:5269/api/automobili",
+        ); // Replace with your API URL
         setData(response.data);
       } catch (error) {
-        console.error('Error fetching data:', error);
+        console.error("Error fetching data:", error);
       } finally {
         setLoading(false);
       }
@@ -21,21 +23,23 @@ const Automobili = () => {
   }, []);
 
   const handleDelete = async (id) => {
-    const confirmDelete = window.confirm('Are you sure you want to delete this item?');
+    const confirmDelete = window.confirm(
+      "Are you sure you want to delete this item?",
+    );
     if (!confirmDelete) return;
 
     try {
       await axios.delete(`http://localhost:5269/api/automobili/${id}`); // Adjust the endpoint as needed
       setData(data.filter((car) => car.idAutomobili !== id)); // Update the state to remove the deleted item
-      alert('Car deleted successfully!');
+      alert("Car deleted successfully!");
     } catch (error) {
-      console.error('Error deleting car:', error);
-      alert('Failed to delete the car. Please try again.');
+      console.error("Error deleting car:", error);
+      alert("Failed to delete the car. Please try again.");
     }
   };
 
   if (loading) {
-    return <p style={{ textAlign: 'center', fontSize: '18px' }}>Loading...</p>;
+    return <p style={{ textAlign: "center", fontSize: "18px" }}>Loading...</p>;
   }
 
   return (
@@ -77,45 +81,45 @@ const Automobili = () => {
 export default Automobili;
 
 const styles = {
-    container: {
-      margin: '20px auto',
-      maxWidth: '800px',
-      padding: '20px',
-      backgroundColor: '#f8f9fa',
-      borderRadius: '8px',
-      boxShadow: '0 4px 8px rgba(0, 0, 0, 0.1)',
-    },
-    title: {
-      textAlign: 'center',
-      fontSize: '24px',
-      fontWeight: 'bold',
-      color: '#343a40',
-      marginBottom: '20px',
-    },
-    table: {
-      width: '100%',
-      borderCollapse: 'collapse',
-    },
-    th: {
-      backgroundColor: '#343a40',
-      color: '#ffffff',
-      padding: '10px',
-      textAlign: 'left',
-    },
-    td: {
-      border: '1px solid #dddddd',
-      padding: '10px',
-      textAlign: 'left',
-    },
-    button: {
-      padding: '8px 12px',
-      backgroundColor: '#dc3545',
-      color: '#ffffff',
-      border: 'none',
-      borderRadius: '4px',
-      cursor: 'pointer',
-    },
-    buttonHover: {
-      backgroundColor: '#c82333',
-    },
-  };
+  container: {
+    margin: "20px auto",
+    maxWidth: "800px",
+    padding: "20px",
+    backgroundColor: "#f8f9fa",
+    borderRadius: "8px",
+    boxShadow: "0 4px 8px rgba(0, 0, 0, 0.1)",
+  },
+  title: {
+    textAlign: "center",
+    fontSize: "24px",
+    fontWeight: "bold",
+    color: "#343a40",
+    marginBottom: "20px",
+  },
+  table: {
+    width: "100%",
+    borderCollapse: "collapse",
+  },
+  th: {
+    backgroundColor: "#343a40",
+    color: "#ffffff",
+    padding: "10px",
+    textAlign: "left",
+  },
+  td: {
+    border: "1px solid #dddddd",
+    padding: "10px",
+    textAlign: "left",
+  },
+  button: {
+    padding: "8px 12px",
+    backgroundColor: "#dc3545",
+    color: "#ffffff",
+    border: "none",
+    borderRadius: "4px",
+    cursor: "pointer",
+  },
+  buttonHover: {
+    backgroundColor: "#c82333",
+  },
+};

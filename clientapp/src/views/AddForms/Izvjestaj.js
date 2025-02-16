@@ -21,16 +21,19 @@ const Izvjestaj = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-  
+
     const payload = {
       tipIzvjestaja: formData.tipIzvjestaja.trim(),
       podatci: formData.podatci.trim(),
       datumKreiranja: formData.datumKreiranja,
       idDogadjaj: null,
     };
-  
+
     try {
-      const response = await axios.post("http://localhost:5269/api/izvjestaj", payload);
+      const response = await axios.post(
+        "http://localhost:5269/api/izvjestaj",
+        payload,
+      );
       if (response.status === 200 || response.status === 201) {
         setMessage("Podatci uspješno poslani!");
         setFormData({
@@ -131,7 +134,9 @@ const Izvjestaj = () => {
         <button
           type="submit"
           style={buttonStyle}
-          onMouseOver={(e) => (e.target.style.backgroundColor = buttonHoverStyle.backgroundColor)}
+          onMouseOver={(e) =>
+            (e.target.style.backgroundColor = buttonHoverStyle.backgroundColor)
+          }
           onMouseOut={(e) => (e.target.style.backgroundColor = "#4caf50")}
         >
           Pošalji

@@ -26,7 +26,10 @@ const Glazba = () => {
     e.preventDefault();
 
     try {
-      const response = await axios.post("http://localhost:5269/api/glazba", formData);
+      const response = await axios.post(
+        "http://localhost:5269/api/glazba",
+        formData,
+      );
       if (response.status === 200 || response.status === 201) {
         setMessage("Podatci uspješno poslani!");
         setFormData({
@@ -195,7 +198,9 @@ const Glazba = () => {
         <button
           type="submit"
           style={buttonStyle}
-          onMouseOver={(e) => (e.target.style.backgroundColor = buttonHoverStyle.backgroundColor)}
+          onMouseOver={(e) =>
+            (e.target.style.backgroundColor = buttonHoverStyle.backgroundColor)
+          }
           onMouseOut={(e) => (e.target.style.backgroundColor = "#4caf50")}
         >
           Pošalji

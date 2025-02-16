@@ -3,7 +3,7 @@ import axios from "axios";
 import { useParams } from "react-router-dom";
 
 const EditRestoran = () => {
-  const { id } = useParams(); 
+  const { id } = useParams();
 
   const [formData, setFormData] = useState({
     idRestoran: "",
@@ -20,7 +20,9 @@ const EditRestoran = () => {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await axios.get(`http://localhost:5269/api/restoran/${id}`);
+        const response = await axios.get(
+          `http://localhost:5269/api/restoran/${id}`,
+        );
         setFormData(response.data);
       } catch (error) {
         console.error("Error fetching restoran data:", error);
@@ -53,7 +55,10 @@ const EditRestoran = () => {
     };
 
     try {
-      const response = await axios.put(`http://localhost:5269/api/restoran/${id}`, payload);
+      const response = await axios.put(
+        `http://localhost:5269/api/restoran/${id}`,
+        payload,
+      );
       if (response.status === 200) {
         setMessage("Podaci uspješno ažurirani!");
       }

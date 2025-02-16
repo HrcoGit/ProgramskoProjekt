@@ -51,7 +51,9 @@ const Dogadjaj = ({ vrsta }) => {
 
     const fetchSlasticarna = async () => {
       try {
-        const response = await axios.get("http://localhost:5269/api/slasticarna");
+        const response = await axios.get(
+          "http://localhost:5269/api/slasticarna",
+        );
         setSlasticarna(response.data);
       } catch (error) {
         console.error("Error fetching slasticarna:", error);
@@ -69,7 +71,9 @@ const Dogadjaj = ({ vrsta }) => {
 
     const fetchAutomobili = async () => {
       try {
-        const response = await axios.get("http://localhost:5269/api/automobili");
+        const response = await axios.get(
+          "http://localhost:5269/api/automobili",
+        );
         setAutomobili(response.data);
       } catch (error) {
         console.error("Error fetching automobili:", error);
@@ -98,10 +102,7 @@ const Dogadjaj = ({ vrsta }) => {
     const { name, value } = e.target;
     setFormData((prev) => ({
       ...prev,
-      [name]:
-        name.startsWith("id_") && value !== ""
-          ? Number(value)
-          : value,
+      [name]: name.startsWith("id_") && value !== "" ? Number(value) : value,
     }));
   };
 
@@ -123,14 +124,18 @@ const Dogadjaj = ({ vrsta }) => {
         idDs: formData.idDs === "" ? null : formData.idDs,
         idOstalo: formData.idOstalo === "" ? null : formData.idOstalo,
         idIzvjestaj: null,
-        idAutomobili: formData.idAutomobili === "" ? null : formData.idAutomobili,
+        idAutomobili:
+          formData.idAutomobili === "" ? null : formData.idAutomobili,
         idSalon: formData.id_salon === "" ? null : formData.id_salon,
         idCatering: null,
       };
 
       console.log("Payload:", payload);
 
-      const response = await axios.post("http://localhost:5269/api/dogadjaj", payload);
+      const response = await axios.post(
+        "http://localhost:5269/api/dogadjaj",
+        payload,
+      );
       if (response.status === 200 || response.status === 201) {
         setMessage("Podatci uspješno poslani!");
         setFormData({
@@ -248,8 +253,14 @@ const Dogadjaj = ({ vrsta }) => {
           required
         />
 
-            {/* Select for Glazba */}
-        <select name="idDg" value={formData.idDg} onChange={handleChange} style={selectStyle} required>
+        {/* Select for Glazba */}
+        <select
+          name="idDg"
+          value={formData.idDg}
+          onChange={handleChange}
+          style={selectStyle}
+          required
+        >
           <option value="">Odaberite Glazbu</option>
           {glazba.map((item) => (
             <option key={item.idGlazba} value={item.idGlazba}>
@@ -259,7 +270,13 @@ const Dogadjaj = ({ vrsta }) => {
         </select>
 
         {/* Select for Cvjećara */}
-        <select name="idDc" value={formData.idDc} onChange={handleChange} style={selectStyle} required>
+        <select
+          name="idDc"
+          value={formData.idDc}
+          onChange={handleChange}
+          style={selectStyle}
+          required
+        >
           <option value="">Odaberite Cvjećaru</option>
           {cvjecara.map((item) => (
             <option key={item.idCvjecara} value={item.idCvjecara}>
@@ -269,7 +286,13 @@ const Dogadjaj = ({ vrsta }) => {
         </select>
 
         {/* Select for Slastičarna */}
-        <select name="idDs" value={formData.idDs} onChange={handleChange} style={selectStyle} required>
+        <select
+          name="idDs"
+          value={formData.idDs}
+          onChange={handleChange}
+          style={selectStyle}
+          required
+        >
           <option value="">Odaberite Slastičarnu</option>
           {slasticarna.map((item) => (
             <option key={item.idSlasticarna} value={item.idSlasticarna}>
@@ -279,7 +302,13 @@ const Dogadjaj = ({ vrsta }) => {
         </select>
 
         {/* Select for Ostalo */}
-        <select name="idOstalo" value={formData.idOstalo} onChange={handleChange} style={selectStyle} required>
+        <select
+          name="idOstalo"
+          value={formData.idOstalo}
+          onChange={handleChange}
+          style={selectStyle}
+          required
+        >
           <option value="">Odaberite Ostalo</option>
           {ostalo.map((item) => (
             <option key={item.idOstalo} value={item.idOstalo}>
@@ -289,7 +318,13 @@ const Dogadjaj = ({ vrsta }) => {
         </select>
 
         {/* Select for Automobili */}
-        <select name="idAutomobili" value={formData.idAutomobili} onChange={handleChange} style={selectStyle} required>
+        <select
+          name="idAutomobili"
+          value={formData.idAutomobili}
+          onChange={handleChange}
+          style={selectStyle}
+          required
+        >
           <option value="">Odaberite Automobile</option>
           {automobili.map((item) => (
             <option key={item.idAutomobili} value={item.idAutomobili}>
@@ -299,7 +334,13 @@ const Dogadjaj = ({ vrsta }) => {
         </select>
 
         {/* Select for Salon */}
-        <select name="idSalon" value={formData.idSalon} onChange={handleChange} style={selectStyle} required>
+        <select
+          name="idSalon"
+          value={formData.idSalon}
+          onChange={handleChange}
+          style={selectStyle}
+          required
+        >
           <option value="">Odaberite Salon</option>
           {salon.map((item) => (
             <option key={item.idSalon} value={item.idSalon}>
@@ -308,16 +349,13 @@ const Dogadjaj = ({ vrsta }) => {
           ))}
         </select>
 
-
         <button
           type="submit"
           style={buttonStyle}
           onMouseOver={(e) =>
             (e.target.style.backgroundColor = buttonHoverStyle.backgroundColor)
           }
-          onMouseOut={(e) =>
-            (e.target.style.backgroundColor = "#4caf50")
-          }
+          onMouseOut={(e) => (e.target.style.backgroundColor = "#4caf50")}
         >
           Pošalji
         </button>

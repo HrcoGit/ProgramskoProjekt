@@ -22,7 +22,9 @@ const EditAutomobil = () => {
   useEffect(() => {
     const fetchAutomobilData = async () => {
       try {
-        const response = await axios.get(`http://localhost:5269/api/automobili/${id}`);
+        const response = await axios.get(
+          `http://localhost:5269/api/automobili/${id}`,
+        );
         setFormData(response.data);
       } catch (error) {
         console.error("Error fetching car data:", error);
@@ -40,7 +42,8 @@ const EditAutomobil = () => {
 
     setFormData((prevData) => ({
       ...prevData,
-      [name]: name === "cijena" || name === "provizija" ? parseFloat(value) : value,
+      [name]:
+        name === "cijena" || name === "provizija" ? parseFloat(value) : value,
     }));
   };
 
@@ -61,7 +64,10 @@ const EditAutomobil = () => {
 
       console.log("Submitting payload:", payload); // Debugging
 
-      const response = await axios.put(`http://localhost:5269/api/automobili/${id}`, payload);
+      const response = await axios.put(
+        `http://localhost:5269/api/automobili/${id}`,
+        payload,
+      );
 
       if (response.status === 200) {
         setMessage("Podaci uspješno ažurirani!");
@@ -154,7 +160,9 @@ const EditAutomobil = () => {
           />
         </div>
 
-        <button type="submit" style={styles.button}>Ažuriraj Automobil</button>
+        <button type="submit" style={styles.button}>
+          Ažuriraj Automobil
+        </button>
       </form>
       {message && <p style={styles.message}>{message}</p>}
     </div>

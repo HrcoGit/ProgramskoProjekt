@@ -1,9 +1,9 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
-import { useParams } from "react-router-dom"; 
+import { useParams } from "react-router-dom";
 
 const EditCvjecara = () => {
-  const { id } = useParams(); 
+  const { id } = useParams();
   const [formData, setFormData] = useState({
     idCvjecara: "", // ✅ Include ID for API compatibility
     ime: "",
@@ -20,7 +20,9 @@ const EditCvjecara = () => {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await axios.get(`http://localhost:5269/api/cvjecara/${id}`);
+        const response = await axios.get(
+          `http://localhost:5269/api/cvjecara/${id}`,
+        );
         setFormData(response.data);
       } catch (error) {
         console.error("Error fetching data:", error);
@@ -38,7 +40,8 @@ const EditCvjecara = () => {
 
     setFormData({
       ...formData,
-      [name]: name === "provizija" || name === "cijena" ? parseFloat(value) : value,
+      [name]:
+        name === "provizija" || name === "cijena" ? parseFloat(value) : value,
     });
   };
 
@@ -56,7 +59,10 @@ const EditCvjecara = () => {
         cijena: parseFloat(formData.cijena),
       };
 
-      const response = await axios.put(`http://localhost:5269/api/cvjecara/${id}`, payload);
+      const response = await axios.put(
+        `http://localhost:5269/api/cvjecara/${id}`,
+        payload,
+      );
       if (response.status === 200 || response.status === 201) {
         setMessage("Podaci uspješno ažurirani!");
       }

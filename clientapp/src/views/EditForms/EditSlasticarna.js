@@ -22,7 +22,9 @@ const EditSlasticarna = () => {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await axios.get(`http://localhost:5269/api/slasticarna/${id}`);
+        const response = await axios.get(
+          `http://localhost:5269/api/slasticarna/${id}`,
+        );
         setFormData(response.data);
       } catch (error) {
         console.error("Error fetching data:", error);
@@ -56,7 +58,10 @@ const EditSlasticarna = () => {
     };
 
     try {
-      const response = await axios.put(`http://localhost:5269/api/slasticarna/${id}`, payload);
+      const response = await axios.put(
+        `http://localhost:5269/api/slasticarna/${id}`,
+        payload,
+      );
       if (response.status === 200 || response.status === 201) {
         setMessage("Podatci uspješno ažurirani!");
       }

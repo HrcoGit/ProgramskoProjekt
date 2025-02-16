@@ -3,7 +3,7 @@ import axios from "axios";
 import { useParams } from "react-router-dom";
 
 const EditGlazba = () => {
-  const { id } = useParams(); 
+  const { id } = useParams();
 
   const [formData, setFormData] = useState({
     idGlazba: "",
@@ -23,7 +23,9 @@ const EditGlazba = () => {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await axios.get(`http://localhost:5269/api/glazba/${id}`);
+        const response = await axios.get(
+          `http://localhost:5269/api/glazba/${id}`,
+        );
         setFormData(response.data);
       } catch (error) {
         console.error("Error fetching glazba data:", error);
@@ -64,7 +66,10 @@ const EditGlazba = () => {
     };
 
     try {
-      const response = await axios.put(`http://localhost:5269/api/glazba/${id}`, payload);
+      const response = await axios.put(
+        `http://localhost:5269/api/glazba/${id}`,
+        payload,
+      );
       if (response.status === 200) {
         setMessage("Podaci uspješno ažurirani!");
       }
@@ -145,7 +150,9 @@ const EditGlazba = () => {
           style={styles.input}
           required
         />
-        <button type="submit" style={styles.button}>Ažuriraj</button>
+        <button type="submit" style={styles.button}>
+          Ažuriraj
+        </button>
       </form>
       {message && <p style={styles.message}>{message}</p>}
     </div>

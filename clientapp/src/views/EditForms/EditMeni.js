@@ -21,7 +21,9 @@ const EditMeni = () => {
     const fetchData = async () => {
       try {
         // Fetch all restaurants
-        const restoraniRes = await axios.get("http://localhost:5269/api/restoran");
+        const restoraniRes = await axios.get(
+          "http://localhost:5269/api/restoran",
+        );
         setRestorani(restoraniRes.data);
 
         // Fetch all dishes
@@ -29,7 +31,9 @@ const EditMeni = () => {
         setJela(jelaRes.data);
 
         // Fetch current menu details
-        const meniRes = await axios.get(`http://localhost:5269/api/restoranJelo/${id}`);
+        const meniRes = await axios.get(
+          `http://localhost:5269/api/restoranJelo/${id}`,
+        );
         setFormData({
           idRestoran: meniRes.data.idRestoran.toString(),
           selectedJela: meniRes.data.jela.map((j) => j.idJelo.toString()), // Convert to string for consistency
@@ -92,7 +96,7 @@ const EditMeni = () => {
 
           console.log("Submitting Payload:", payload);
           return axios.post("http://localhost:5269/api/restoranJelo", payload);
-        })
+        }),
       );
 
       setMessage("Podatci uspješno ažurirani!");
@@ -106,7 +110,9 @@ const EditMeni = () => {
     return <p style={{ textAlign: "center", fontSize: "18px" }}>Loading...</p>;
   }
 
-  const availableJela = jela.filter((jelo) => !formData.selectedJela.includes(jelo.idJelo.toString()));
+  const availableJela = jela.filter(
+    (jelo) => !formData.selectedJela.includes(jelo.idJelo.toString()),
+  );
 
   return (
     <div style={styles.container}>
@@ -162,7 +168,10 @@ const EditMeni = () => {
         <button
           type="submit"
           style={styles.button}
-          onMouseOver={(e) => (e.target.style.backgroundColor = styles.buttonHover.backgroundColor)}
+          onMouseOver={(e) =>
+            (e.target.style.backgroundColor =
+              styles.buttonHover.backgroundColor)
+          }
           onMouseOut={(e) => (e.target.style.backgroundColor = "#4caf50")}
         >
           Ažuriraj

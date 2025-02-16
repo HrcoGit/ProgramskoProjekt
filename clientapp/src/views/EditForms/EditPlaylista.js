@@ -3,7 +3,7 @@ import axios from "axios";
 import { useParams } from "react-router-dom";
 
 const EditPlaylista = () => {
-  const { id } = useParams(); 
+  const { id } = useParams();
 
   const [formData, setFormData] = useState({
     id_playlista: "",
@@ -19,7 +19,9 @@ const EditPlaylista = () => {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await axios.get(`http://localhost:5269/api/playlista/${id}`);
+        const response = await axios.get(
+          `http://localhost:5269/api/playlista/${id}`,
+        );
         setFormData(response.data);
       } catch (error) {
         console.error("Error fetching data:", error);
@@ -42,7 +44,10 @@ const EditPlaylista = () => {
     e.preventDefault();
 
     try {
-      const response = await axios.put(`http://localhost:5269/api/playlista/${id}`, formData);
+      const response = await axios.put(
+        `http://localhost:5269/api/playlista/${id}`,
+        formData,
+      );
       if (response.status === 200 || response.status === 201) {
         setMessage("Podatci uspješno ažurirani!");
       }
