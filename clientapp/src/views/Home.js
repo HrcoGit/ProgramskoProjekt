@@ -26,6 +26,17 @@ export const Home = () => {
   const [editMode, setEditMode] = useState(false);
   const navigate = useNavigate();
 
+  // Helper function to format dates
+  const formatDate = (dateStr) => {
+    if (!dateStr) return "";
+    const date = new Date(dateStr);
+    return new Intl.DateTimeFormat("hr-HR", {
+      day: "numeric",
+      month: "short",
+      year: "numeric",
+    }).format(date);
+  };
+
   useEffect(() => {
     const fetchData = async () => {
       try {
@@ -156,13 +167,13 @@ export const Home = () => {
       } else if (current < start) {
         return (
           <div style={styles.availabilityNotAvailable}>
-            Dostupno od: {item.pocAngazmana}
+            Dostupno od: {formatDate(item.pocAngazmana)}
           </div>
         );
       } else if (current > end) {
         return (
           <div style={styles.availabilityNotAvailable}>
-            Isteklo: {item.krajAngazmana}
+            Isteklo: {formatDate(item.krajAngazmana)}
           </div>
         );
       }
@@ -216,6 +227,7 @@ export const Home = () => {
       alignItems: "center",
       textAlign: "center",
       position: "relative",
+      boxShadow: "0 4px 8px rgba(0,0,0,0.1)",
     },
     // New add item card style: matching dimensions, transparent background, dashed green border
     addItemCard: {
@@ -352,7 +364,9 @@ export const Home = () => {
                   "N/A"}
               </h3>
               <p style={{ fontSize: "20px", margin: "4px" }}>
-                {item.model || item.lokacija || item.adresa || item.datum || ""}
+                {item.datum
+                  ? formatDate(item.datum)
+                  : item.model || item.lokacija || item.adresa || ""}
               </p>
               {/* Price info: label and main price */}
               {item.cijena != null && item.provizija != null && (
@@ -420,13 +434,13 @@ export const Home = () => {
           </button>
         </div>
       </div>
-      {renderSection("Dogadjaj", "dogadjaj")}
+      {renderSection("Događaji", "dogadjaj")}
       {renderSection("Automobili", "automobili")}
-      {renderSection("Cvjećara", "cvjecara")}
+      {renderSection("Cvjećare", "cvjecara")}
       {renderSection("Glazba", "glazba")}
-      {renderSection("Restoran", "restoran")}
-      {renderSection("Salon", "salon")}
-      {renderSection("Slastičarna", "slasticarna")}
+      {renderSection("Restorani", "restoran")}
+      {renderSection("Saloni", "salon")}
+      {renderSection("Slastičarne", "slasticarna")}
     </div>
   );
 };

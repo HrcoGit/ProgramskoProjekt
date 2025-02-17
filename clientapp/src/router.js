@@ -1,6 +1,5 @@
 import React from "react";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
-import Automobili from "./views/Automobili";
 import Cvjecara from "./views/AddForms/Cvjecara";
 import Dogadjaj from "./views/AddForms/Dogadjaj";
 import Restoran from "./views/AddForms/Restoran";
@@ -31,7 +30,6 @@ const AppRouter = () => {
       <Routes>
         <Route path="/" element={<Layout />}>
           <Route path="/" element={<Home />} />
-          <Route path="/automobili" element={<Automobili />} />
           <Route path="/dodaj-automobil" element={<Automobil />} />
           <Route path="/dodaj-cvjećarnu" element={<Cvjecara />} />
           <Route path="/dodaj-svatove" element={<Dogadjaj vrsta="Svatovi" />} />

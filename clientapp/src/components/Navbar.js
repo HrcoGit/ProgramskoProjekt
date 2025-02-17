@@ -4,10 +4,16 @@ import { useNavigate } from "react-router-dom";
 
 const Navbar = () => {
   const [dropdownOpen, setDropdownOpen] = useState(false);
+  const [selected, setSelected] = useState("Svatovi");
   const navigate = useNavigate();
 
   const toggleDropdown = () => {
     setDropdownOpen(!dropdownOpen);
+  };
+
+  const handleTabClick = (category) => {
+    setSelected(category);
+    navigate("/"); // Navigate to home (or update if needed)
   };
 
   return (
@@ -17,29 +23,24 @@ const Navbar = () => {
           <LiaRingSolid />
         </div>
         <ul style={styles.navList}>
-          <li style={styles.navItem}>
-            <span style={styles.navLink} onClick={() => navigate("/")}>
-              Svatovi
-            </span>
-          </li>
-          <li style={styles.navItem}>
-            <span style={styles.navLink} onClick={() => navigate("/")}>
-              Krštenja
-            </span>
-          </li>
-          <li style={styles.navItem}>
-            <span style={styles.navLink} onClick={() => navigate("/")}>
-              Pričesti
-            </span>
-          </li>
-          <li style={styles.navItem}>
-            <span style={styles.navLink} onClick={() => navigate("/")}>
-              Krizme
-            </span>
-          </li>
+          {["Svatovi", "Krštenja", "Pričesti", "Krizme"].map((category) => (
+            <li key={category} style={styles.navItem}>
+              <span
+                style={{
+                  ...styles.navLink,
+                  borderBottom:
+                    selected === category ? "2px solid #fff" : "none",
+                }}
+                onClick={() => handleTabClick(category)}
+              >
+                {category}
+              </span>
+            </li>
+          ))}
         </ul>
       </div>
-      {/* <div style={styles.dropdownContainer}>
+      {/*
+      <div style={styles.dropdownContainer}>
         <button style={styles.addNew} onClick={toggleDropdown}>
           +
         </button>
@@ -113,6 +114,7 @@ const styles = {
     color: "#fff",
     fontSize: "20px",
     cursor: "pointer",
+    paddingBottom: "4px",
   },
   dropdownContainer: {
     position: "relative",
