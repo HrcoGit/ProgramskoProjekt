@@ -34,10 +34,10 @@ const AppRouter = () => {
           <Route path="/dodaj-cvjećarnu" element={<Cvjecara />} />
           <Route path="/dodaj-svatove" element={<Dogadjaj vrsta="Svatovi" />} />
           <Route
-            path="/dodaj-krtštenje"
+            path="/dodaj-krstenje"
             element={<Dogadjaj vrsta="Krštenje" />}
           />
-          <Route path="/dodaj-pričest" element={<Dogadjaj vrsta="Pričest" />} />
+          <Route path="/dodaj-pricest" element={<Dogadjaj vrsta="Pričest" />} />
           <Route path="/dodaj-krizmu" element={<Dogadjaj vrsta="Krizma" />} />
           <Route path="/dodaj-glazbu" element={<Glazba />} />
           <Route path="/dodaj-izvještaj" element={<Izvjestaj />} />

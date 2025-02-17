@@ -121,7 +121,7 @@ const Dogadjaj = ({ vrsta }) => {
         idDg: formData.idDg === "" ? null : formData.idDg,
         idDc: formData.idDc === "" ? null : formData.idDc,
         idDs: formData.idDs === "" ? null : formData.idDs,
-        idOstalo: formData.idOstalo === "" ? null : formData.idOstalo,
+        idOstalo:  null ,
         idIzvjestaj: null,
         idAutomobili:
           formData.idAutomobili === "" ? null : formData.idAutomobili,
@@ -292,20 +292,8 @@ const Dogadjaj = ({ vrsta }) => {
         </select>
 
         {/* Select for Ostalo */}
-        <select
-          name="idOstalo"
-          value={formData.idOstalo}
-          onChange={handleChange}
-          style={selectStyle}
-          required
-        >
-          <option value="">Odaberite Ostalo</option>
-          {ostalo.map((item) => (
-            <option key={item.idOstalo} value={item.idOstalo}>
-              {item.ime}
-            </option>
-          ))}
-        </select>
+       
+        
 
         {/* Select for Automobili */}
         <select
